@@ -1,26 +1,38 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+@font-face {
+  font-family: 'Sansation';
+  src:  url('../public/assets/fonts/sansation/Sansation_Light.ttf');
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+@font-face {
+  font-family: 'Sansation';
+  src:  url('../public/assets/fonts/sansation/Sansation_Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Sansation';
+  src:  url('../public/assets/fonts/sansation/Sansation_Bold.ttf');
+}
+
+:root {
+  --primary-blue: #4696F3;
+  --light-blue: #E9F3FF;
+  --dark-blue: #2169BE;
+  --dark: #263245;
+  --white: #fafafa;
+  --light-grey: #CED5DF;
 }
 
 * {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Sansation, Helvetica Neue, sans-serif;
+}
+
+a {
+  text-decoration: none;
 }
