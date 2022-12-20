@@ -15,11 +15,15 @@
 
 :root {
   --primary-blue: #4696F3;
+  --inactive-blue: #A6CAF3; 
   --light-blue: #E9F3FF;
   --dark-blue: #2169BE;
-  --dark: #263245;
+  --dark: #11161D;
   --white: #fafafa;
   --light-grey: #CED5DF;
+  --border-grey: #6E7682;
+  --card-bg: #1F2631;
+  --error-red: #E37E7E;
 }
 
 * {
