@@ -1,16 +1,9 @@
-import type { NextPage } from 'next'
-
-
-const LandingPage: NextPage = () => {
-  return (
-    <main>
-  <div>
-    <h1>
-      Start your journey today!
-    </h1>
-  </div>
-  </main>
+export default function LandingPage() {
+  return(
+    <div>
+      <h1>
+        Start your journey here!
+      </h1>
+    </div>
   )
 }
-
-export default LandingPage
