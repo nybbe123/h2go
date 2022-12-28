@@ -1,0 +1,25 @@
+GET http://localhost:3000/api/user HTTP/1.1
+
+###
+
+GET http://localhost:3000/api/user?email=Jnyberg@gmail.com HTTP/1.1
+
+###
+
+POST http://localhost:3000/api/user HTTP/1.1
+content-type: application/json
+
+{
+    "name": "DingDong",
+    "email": "Ding@gmail.com"
+}
+
+###
+
+PUT http://localhost:3000/api/user HTTP/1.1
+content-type: application/json
+
+{
+    "id": "clc7058h20000us8wog2zgnu6",
+    "name": "Lalala"
+}
