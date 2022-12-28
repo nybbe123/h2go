@@ -1,9 +1,10 @@
 export default function LandingPage() {
-  return(
+  return (
     <div>
-      <h1>
-        Start your journey here!
-      </h1>
+      <div>
+        <span>Logo</span>
+      </div>
+      <h1>Water is natures powerup</h1>
     </div>
-  )
+  );
 }
