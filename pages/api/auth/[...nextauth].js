@@ -16,6 +16,23 @@ export const authOptions = {
       from: process.env.EMAIL_FROM,
     }),
   ],
+  callbacks: {
+    session: async ({ session, token }) => {
+      if (session?.user) {
+        session.user.id = token.sub;
+      }
+      return session;
+    },
+    jwt: async ({ user, token }) => {
+      if (user) {
+        token.sub = user.id;
+      }
+      return token;
+    },
+  },
+  session: {
+    strategy: 'jwt',
+  },
 }
 
 export default NextAuth(authOptions)
