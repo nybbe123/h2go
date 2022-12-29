@@ -1,5 +1,5 @@
 import { GetServerSideProps, NextPage } from "next";
-import { getSession, useSession } from "next-auth/react"
+import { getSession, signOut, useSession } from "next-auth/react"
 import { ChangeEvent, useState } from "react";
 import { useRouter } from 'next/router'
 
@@ -11,6 +11,15 @@ interface UserData {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    }
+  }
 
   if (session && session.user?.name) {
     return {
@@ -53,6 +62,7 @@ const GoalPage: NextPage = () => {
       name: name,
       goal: goalValue.toString(),
     }
+
     const response = await fetch(`/api/user`, {
       method: 'PUT',
       headers: {
@@ -98,6 +108,7 @@ const GoalPage: NextPage = () => {
           <div>
             <button type="button" onClick={increaseGoalValue}>+</button>
             <button type="button" onClick={decreaseGoalValue}>-</button>
+            <button onClick={() => signOut({callbackUrl: `${window.location.origin}`})}>LOGGA UT</button>
           </div>
         </div>
         <button type="submit">Spara val</button>

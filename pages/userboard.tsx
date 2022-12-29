@@ -14,15 +14,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 
-  else if (session && !session.user.name) {
-    return {
-      redirect: {
-        destination: "/goal",
-        permanent: false,
-      },
-    }
-  }
-
   let user = await prisma.user.findUnique({
     where: {
       email: session?.user.email,
@@ -30,6 +21,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   });
 
   user = JSON.parse(JSON.stringify(user))
+
+  if (!user?.name) {
+    return {
+      redirect: {
+        destination: "/goal",
+        permanent: false,
+      },
+    }
+  }
 
   return {
     props: {
