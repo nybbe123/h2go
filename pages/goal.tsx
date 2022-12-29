@@ -2,6 +2,7 @@ import { GetServerSideProps, NextPage } from "next";
 import { getSession, signOut, useSession } from "next-auth/react"
 import { ChangeEvent, useState } from "react";
 import { useRouter } from 'next/router'
+import prisma from "../prisma/prismaDb";
 
 interface UserData {
   name: string | undefined
@@ -21,7 +22,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 
-  if (session && session.user?.name) {
+  let user = await prisma.user.findUnique({
+    where: {
+      email: session?.user.email,
+    },
+  });
+
+  user = JSON.parse(JSON.stringify(user))
+
+  if (user?.name) {
     return {
       redirect: {
         destination: "/userboard",
