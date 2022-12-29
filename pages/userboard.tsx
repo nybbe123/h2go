@@ -1,7 +1,6 @@
-import { GetServerSideProps, NextPage } from "next"
-import { getSession, signOut, useSession } from "next-auth/react"
-import { useEffect, useState } from "react";
-import { User } from "../prisma/user";
+import prisma from "../prisma/prismaDb";
+import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from "next"
+import { getSession, signOut } from "next-auth/react"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
@@ -24,27 +23,24 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 
+  let user = await prisma.user.findUnique({
+    where: {
+      email: session?.user.email,
+    },
+  });
+
+  user = JSON.parse(JSON.stringify(user))
+
   return {
-    props: { session },
+    props: {
+      user
+    } 
   };
-};
+}
 
-const UserBoard: NextPage = () => {
-  const [user, setUser] = useState<User>()
-  const {data: session} = useSession();
-
-  useEffect(() => {
-    const getUser = async () => {
-      const res = await fetch(`/api/user?email=${session?.user.email}`)
-      if(res.ok) {
-        const data = await res.json()
-        setUser(data)
-      }
-    }
-
-    getUser()
-  }, [session?.user])
-  
+const UserBoard: NextPage<
+InferGetServerSidePropsType<typeof getServerSideProps>
+> = ({ user }) => {  
   return (
       <div>
         <h1>Hej {user?.name}</h1>
