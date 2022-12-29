@@ -2,7 +2,7 @@ GET http://localhost:3000/api/user HTTP/1.1
 
 ###
 
-GET http://localhost:3000/api/user?email=Jnyberg@gmail.com HTTP/1.1
+GET http://localhost:3000/api/user?email=nyberg112@gmail.com HTTP/1.1
 
 ###
 
@@ -20,6 +20,6 @@ PUT http://localhost:3000/api/user HTTP/1.1
 content-type: application/json
 
 {
-    "id": "clc7058h20000us8wog2zgnu6",
+    "id": "clc958b5j0000usfw7jty2bnn",
     "name": "Lalala"
 }

@@ -5,6 +5,7 @@ export interface User {
   name?: string;
   email?: string;
   image?: string;
+  goal?: string;
 }
 
 export const getAllUsers = async () => {
