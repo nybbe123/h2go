@@ -1,42 +1,42 @@
-import prisma from "./prismaDb"
+import prisma from "./prismaDb";
 
 export interface User {
-  id?: string 
-  name?: string
-  email?: string
-  image?: string
+  id?: string;
+  name?: string;
+  email?: string;
+  image?: string;
 }
 
 export const getAllUsers = async () => {
-  const users = await prisma.user.findMany({})
-  return users
-}
+  const users = await prisma.user.findMany({});
+  return users;
+};
 
-export const getUser = async (email: string | string[]) => {
+export const getUser = async (email: string) => {
   const user = await prisma.user.findUnique({
-    where: { 
-      email
+    where: {
+      email,
     },
-  })
-  return user
-}
+  });
+  return user;
+};
 
-export const createUser = async (email:string, name:string) => {
+export const createUser = async (email: string, name: string) => {
   const user = await prisma.user.create({
     data: {
       email,
-      name
-    }
-  })
-  return user
-}
+      name,
+    },
+  });
+  return user;
+};
 
-export const updateUser = async (id:string, updateData: User) => {
+export const updateUser = async (id: string, updateData: User) => {
   const user = await prisma.user.update({
     where: {
-      id
+      id,
     },
-    data: { ...updateData}
-  })
-  return user
-}
+    data: { ...updateData },
+  });
+  return user;
+};
