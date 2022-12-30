@@ -33,7 +33,11 @@ const SignUp: NextPage<
 > = ({ providers, csrfToken }) => {
   return (
     <div>
-      <h1>Registrera dig här</h1>
+      <h1>Hallå där!</h1>
+      <p>
+        På H2:GO använder vi inte lösenord. Skriv bara in din email nedan för
+        att registrera dig eller logga in.
+      </p>
       <form method="post" action="/api/auth/signin/email">
         <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
         <label htmlFor="email">
@@ -44,10 +48,6 @@ const SignUp: NextPage<
             type="text"
             placeholder="mailadress@exempel.se"
           />
-          <p>
-            H2GO är lösenordsfritt. Klicka på länken från Hyrstacken som skickas
-            till din mail efteråt för att logga in. Kolla din skräppost!
-          </p>
         </label>
         <button type="submit">Logga in / Registrera</button>
       </form>
