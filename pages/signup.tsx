@@ -33,7 +33,7 @@ const SignUp: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ providers, csrfToken }) => {
   return (
-    <div>
+    <div className={styles.root}>
       <h1>Hallå där!</h1>
       <p>
         På H2:GO använder vi inte lösenord. Skriv bara in din email nedan för
@@ -43,12 +43,7 @@ const SignUp: NextPage<
         <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
         <label htmlFor="email">
           <span>Email</span>
-          <input
-            id="email"
-            name="email"
-            type="text"
-            placeholder="mailadress@exempel.se"
-          />
+          <input id="email" name="email" type="text" />
         </label>
         <button type="submit" className={styles["sign-in-button"]}>
           Logga in / Registrera
