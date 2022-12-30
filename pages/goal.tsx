@@ -4,7 +4,7 @@ import { ChangeEvent, useState } from "react";
 import { useRouter } from 'next/router'
 import prisma from "../prisma/prismaDb";
 
-interface UserData {
+export interface UserData {
   name: string | undefined
   goal: string | undefined
   id: string | undefined
