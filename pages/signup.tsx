@@ -34,21 +34,34 @@ const SignUp: NextPage<
 > = ({ providers, csrfToken }) => {
   return (
     <div className={styles.root}>
-      <h1>Hallå där!</h1>
-      <p>
-        På H2:GO använder vi inte lösenord. Skriv bara in din email nedan för
-        att registrera dig eller logga in.
-      </p>
-      <form method="post" action="/api/auth/signin/email">
-        <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
-        <label htmlFor="email">
-          <span>Email</span>
-          <input id="email" name="email" type="text" />
-        </label>
-        <button type="submit" className={styles["sign-in-button"]}>
-          Logga in / Registrera
-        </button>
-      </form>
+      <div>
+        <h1>Hallå där!</h1>
+        <p>
+          På H2:GO använder vi inte lösenord. Skriv bara in din email nedan för
+          att registrera dig eller logga in.
+        </p>
+      </div>
+      <div>
+        <form method="post" action="/api/auth/signin/email">
+          <input
+            className={styles["inputfield"]}
+            name="csrfToken"
+            type="hidden"
+            defaultValue={csrfToken}
+          />
+          <label htmlFor="email">
+            <span>Email</span>
+            <input id="email" name="email" type="text" />
+          </label>
+          <button type="submit" className={styles["sign-in-button"]}>
+            Logga in / Registrera
+          </button>
+          <p>
+            Genom att registrera dig godkänner du våra användarvillkor och
+            sekretesspolicy
+          </p>
+        </form>
+      </div>
       {providers &&
         Object.values(providers).map((provider) => {
           if (provider.name === "Email") {
