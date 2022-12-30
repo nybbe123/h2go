@@ -59,7 +59,7 @@
     color: var(--white);
     font-size: 1.1rem;
     letter-spacing: 1px;
-    font-weight: 600;
+    font-weight: 500;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -70,7 +70,7 @@
     svg {
       width: 50px;
       position: relative;
-      left: 1.5rem;
+      left: 1.8rem;
 
       rect,
       path {
@@ -92,11 +92,11 @@
 
       svg {  
         path {
-          transform: translate(8px, 0);
+          transform: translate(4px, 0);
         }
         
         rect {
-          x: 15px;
+          x: 14px;
           width: 50px;
         }
       }
