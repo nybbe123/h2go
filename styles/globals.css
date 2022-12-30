@@ -14,6 +14,8 @@
 } */
 
 :root {
+  --app-height: 100%;
+
   --primary-blue: #4696F3;
   --inactive-blue: #A6CAF3; 
   --light-blue: #E9F3FF;
@@ -37,6 +39,12 @@ body {
   font-family: Sansation, Helvetica Neue, sans-serif;
   color: var(--white);
   background-color: var(--bg);
+
+  height: 100vh;
+
+  @media not all and (hover:hover) {
+    height: var(--app-height);
+  }
 }
 
 button {
