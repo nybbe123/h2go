@@ -1,0 +1,149 @@
+.root {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15rem;
+  padding: 2rem;
+
+  @media(max-width: 1380px) {
+    gap: 6rem;
+  }
+
+  @media(max-width: 1200px) {
+    gap: 0;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  @media(max-width: 470px) {
+    padding: 3rem 1rem;
+  }
+}
+
+.logo-container {
+  z-index: 1;
+  position: absolute;
+  top: 2rem;
+  left: 3rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+
+  @media(max-width: 1200px) {
+    position: unset;
+    order: -1;
+  }
+}
+
+.text-container {
+  z-index: 2;
+  h1 {
+    line-height: 1rem;
+    font-size: 2.2rem;
+  }
+
+  p {
+    max-width: 25rem;
+    font-size: 1rem;
+    font-weight: 100;
+    line-height: 1.6rem;
+  }
+
+  button {
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+    width: 100%;
+    background-color: var(--primary-blue);
+    color: var(--white);
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 6px;
+    transition: 250ms;
+    border: none;
+
+    svg {
+      width: 50px;
+      position: relative;
+      left: 1.5rem;
+
+      rect,
+      path {
+        transition: 150ms;
+      }
+
+      path {
+        stroke: var(--white);
+      }
+
+      rect {
+        fill: var(--white);
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+      background-color: var(--dark-blue);
+
+      svg {  
+        path {
+          transform: translate(8px, 0);
+        }
+        
+        rect {
+          x: 15px;
+          width: 50px;
+        }
+      }
+    }
+  }
+
+  @media(max-width: 470px) {
+    h1 {
+      font-size: 1.8rem;
+    }
+
+    button {
+      font-weight: 500;
+      letter-spacing: 0;
+      padding: 1rem 1.2rem;
+    }
+  }
+
+  @media(max-width: 400px) {
+    h1 {
+      font-size: 1.5rem;
+    }
+
+    p {
+      font-size: .9rem;
+      line-height: 1.4rem;
+    }
+  }
+}
+
+.image {
+  scale: 100%;
+
+  @media(max-width: 1200px) {
+    position: absolute;
+    scale: 75%;
+    top: 44%;
+    left: 50%;
+    translate: -50% -50%;
+  }
+
+  @media(max-width: 460px) {
+    scale: 60%;
+  }
+
+  @media(max-width: 380px) {
+    scale: 45%;
+    top: 43%;
+  }
+}
