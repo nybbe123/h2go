@@ -1,24 +1,24 @@
-@font-face {
+/* @font-face {
   font-family: 'Sansation';
   src:  url('../public/assets/fonts/sansation/Sansation_Light.ttf');
-}
+} */
 
 @font-face {
   font-family: 'Sansation';
   src:  url('../public/assets/fonts/sansation/Sansation_Regular.ttf');
 }
 
-@font-face {
+/* @font-face {
   font-family: 'Sansation';
   src:  url('../public/assets/fonts/sansation/Sansation_Bold.ttf');
-}
+} */
 
 :root {
   --primary-blue: #4696F3;
   --inactive-blue: #A6CAF3; 
   --light-blue: #E9F3FF;
   --dark-blue: #2169BE;
-  --dark: #11161D;
+  --bg: #11161D;
   --white: #fafafa;
   --light-grey: #CED5DF;
   --border-grey: #6E7682;
@@ -34,6 +34,12 @@ html,
 body {
   padding: 0;
   margin: 0;
+  font-family: Sansation, Helvetica Neue, sans-serif;
+  color: var(--white);
+  background-color: var(--bg);
+}
+
+button {
   font-family: Sansation, Helvetica Neue, sans-serif;
 }
 
