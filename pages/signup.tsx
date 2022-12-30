@@ -42,11 +42,10 @@ const SignUp: NextPage<
       <div>
         <h1>Hallå där!</h1>
         <p>
-          På H2:GO använder vi inte lösenord. Skriv bara in din email nedan för
-          att registrera dig eller logga in.
+          På H2:GO använder vi inte lösenord.
+          <br></br>
+          Skriv bara in din email nedan för att registrera dig eller logga in.
         </p>
-      </div>
-      <div>
         <form
           className={styles["inputfield"]}
           method="post"
@@ -71,6 +70,7 @@ const SignUp: NextPage<
           </p>
         </form>
       </div>
+
       {providers &&
         Object.values(providers).map((provider) => {
           if (provider.name === "Email") {
