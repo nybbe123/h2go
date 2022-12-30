@@ -24,6 +24,23 @@
     }
   }
 
+  .logo-container-sign-up {
+    z-index: 1;
+    position: absolute;
+    top: 2rem;
+    left: 3rem;
+    display: flex;
+    justify-content: start;
+    gap: .5rem; 
+}
+
+.inputfield {
+    width: 100%;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 6px;
+    margin-top: 0.25rem;
+}
 
 .sign-in-button {
     margin-top: 2rem;
