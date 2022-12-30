@@ -4,11 +4,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 15rem;
+  gap: 10rem;
   padding: 2rem;
 
-  @media(max-width: 1380px) {
-    gap: 6rem;
+  @media(max-width: 1550px) {
+    gap: 4rem;
   }
 
   @media(max-width: 1200px) {
@@ -38,6 +38,8 @@
 }
 
 .text-container {
+  margin-left: 7rem;
+  flex-shrink: 0;
   z-index: 2;
   h1 {
     line-height: 1rem;
@@ -103,6 +105,11 @@
     }
   }
 
+  @media (max-width: 1200px) {
+    margin-left: 0rem;
+    flex-shrink: 1;
+  }
+
   @media(max-width: 470px) {
     h1 {
       font-size: 1.8rem;
@@ -127,22 +134,61 @@
   }
 }
 
-.image {
-  scale: 100%;
+.animation-container {
+  position: relative;
 
   @media(max-width: 1200px) {
     position: absolute;
-    scale: 75%;
-    top: 42%;
+    top: 45%;
     left: 50%;
     translate: -50% -50%;
   }
 
   @media(max-width: 460px) {
-    scale: 60%;
+    top: 43%;
   }
 
-  @media(max-width: 380px) {
-    scale: 45%;
+  .animation{
+    width: 900px;
+
+    @media(max-width: 1380px) {
+      width: 700px;
+    }
+
+    @media(max-width: 720px) {
+      width: 500px;
+    }
+
+    @media(max-width: 500px) {
+      width: 400px;
+    }
+
+    @media(max-width: 400px) {
+      width: 350px;
+    }
+  }
+
+  .image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+
+    @media(max-width: 1380px) {
+      scale: 80%;
+    }
+
+    @media(max-width: 720px) {
+      top: 45%;
+      scale: 60%;
+    }
+
+    @media(max-width: 500px) {
+      scale: 50%;
+    }
+
+    @media(max-width: 400px) {
+      scale: 40%;
+    }
   }
 }
