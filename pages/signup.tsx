@@ -5,6 +5,8 @@ import {
   getSession,
   signIn,
 } from "next-auth/react";
+import styles from "../styles/SignUpPage.module.scss";
+import Logo from "../public/assets/images/logo.svg";
 
 export async function getServerSideProps(context: NextPageContext) {
   const { req } = context;
@@ -32,25 +34,43 @@ const SignUp: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ providers, csrfToken }) => {
   return (
-    <div>
-      <h1>Registrera dig här</h1>
-      <form method="post" action="/api/auth/signin/email">
-        <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
-        <label htmlFor="email">
-          <span>Email</span>
-          <input
-            id="email"
-            name="email"
-            type="text"
-            placeholder="mailadress@exempel.se"
-          />
+    <div className={styles.root}>
+      <div className={styles["logo-container-sign-up"]}>
+        <Logo />
+      </div>
+
+      <div>
+        <h1>Hallå där!</h1>
+        <p>
+          På H2:GO använder vi inte lösenord.
+          <br></br>
+          Skriv bara in din email nedan för att registrera dig eller logga in.
+        </p>
+        <form
+          className={styles["inputfield"]}
+          method="post"
+          action="/api/auth/signin/email"
+        >
+          <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
+          <label htmlFor="email">
+            <span>Email</span>
+            <input
+              className={styles["inputfield"]}
+              id="email"
+              name="email"
+              type="text"
+            />
+          </label>
+          <button type="submit" className={styles["sign-in-button"]}>
+            Logga in / Registrera
+          </button>
           <p>
-            H2GO är lösenordsfritt. Klicka på länken från Hyrstacken som skickas
-            till din mail efteråt för att logga in. Kolla din skräppost!
+            Genom att registrera dig godkänner du våra användarvillkor och
+            sekretesspolicy
           </p>
-        </label>
-        <button type="submit">Logga in / Registrera</button>
-      </form>
+        </form>
+      </div>
+
       {providers &&
         Object.values(providers).map((provider) => {
           if (provider.name === "Email") {
