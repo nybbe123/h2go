@@ -5,6 +5,7 @@ import {
   getSession,
   signIn,
 } from "next-auth/react";
+import styles from "../styles/SignUpPage.module.scss";
 
 export async function getServerSideProps(context: NextPageContext) {
   const { req } = context;
@@ -49,7 +50,9 @@ const SignUp: NextPage<
             placeholder="mailadress@exempel.se"
           />
         </label>
-        <button type="submit">Logga in / Registrera</button>
+        <button type="submit" className={styles["sign-in-button"]}>
+          Logga in / Registrera
+        </button>
       </form>
       {providers &&
         Object.values(providers).map((provider) => {
