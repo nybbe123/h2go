@@ -9,7 +9,18 @@ const Verify: NextPage = () => {
         <Logo />
       </div>
       <div>
-        <h1>Vi har skickat en aktiveringslänk till den angivna mailen!</h1>
+        <h1>Bekräftat!</h1>
+      </div>
+      <div className={styles["confirm-container"]}>
+        <div>
+          <h2>Kolla din @mail!</h2>
+          <p>
+            Vi har skickat en aktiveringslänk till den angivna mailen!
+            <br />
+            Vänligen klicka på länken för att fortsätta.
+          </p>
+          <p>Kan du inte hitta länken? Kolla din skräppost!</p>
+        </div>
       </div>
     </div>
   );
