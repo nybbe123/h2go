@@ -71,14 +71,11 @@ const Home: NextPage = () => {
           <LogoText />
         </div>
         <div className={styles["text-container"]}>
-          <h1>Water is natures powerup</h1>
-          <p>
-            The right amount of water have magical effect on your health, start
-            measuring now
-          </p>
+          <h1>Vatten är naturens powerup</h1>
+          <p>Rätt mängd vatten har magisk effekt på din hälsa, börja mäta nu</p>
           <div>
             <button onClick={() => signIn()}>
-              <span>Start your journey</span>
+              <span>Börja din resa</span>
               <ArrowRight />
             </button>
           </div>
