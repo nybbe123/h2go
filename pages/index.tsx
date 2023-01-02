@@ -3,11 +3,11 @@ import styles from "../styles/LandingPage.module.scss";
 import { getSession, signIn } from "next-auth/react";
 import { GetServerSideProps, NextPage } from "next";
 import Image from "next/image";
-import LandingImg from '../public/assets/images/landing-image-2.png'
-import ArrowRight from '../public/assets/images/arrow-right.svg'
-import Logo from '../public/assets/images/logo.svg'
-import LogoText from '../public/assets/images/logo-text.svg'
-import type { LottiePlayer } from 'lottie-web';
+import LandingImg from "../public/assets/images/landing-image-2.png";
+import ArrowRight from "../public/assets/images/arrow-right.svg";
+import Logo from "../public/assets/images/logo.svg";
+import LogoText from "../public/assets/images/logo-text.svg";
+import type { LottiePlayer } from "lottie-web";
 import { useEffect, useRef, useState } from "react";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -19,10 +19,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         destination: "/userboard",
         permanent: false,
       },
-    }
-  }
-
-  else if (session && !session.user?.name) {
+    };
+  } else if (session && !session.user?.name) {
     return {
       redirect: {
         destination: "/goal",
@@ -37,22 +35,21 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 const Home: NextPage = () => {
-
   const ref = useRef<HTMLDivElement>(null);
   const [lottie, setLottie] = useState<LottiePlayer | null>(null);
 
   useEffect(() => {
-    import('lottie-web').then((Lottie) => setLottie(Lottie.default));
+    import("lottie-web").then((Lottie) => setLottie(Lottie.default));
   }, []);
 
   useEffect(() => {
     if (lottie && ref.current) {
       const animation = lottie.loadAnimation({
         container: ref.current,
-        renderer: 'svg',
+        renderer: "svg",
         loop: true,
         autoplay: true,
-        path: '/waterani.json',
+        path: "/waterani.json",
       });
 
       animation.setSpeed(0.1);
@@ -69,23 +66,30 @@ const Home: NextPage = () => {
         <link rel="icon" href="/icon-192x192.png" />
       </Head>
       <div className={styles.root}>
-          <div className={styles['logo-container']}>
-            <Logo />
-            <LogoText />
-          </div>
-          <div className={styles['text-container']}>
-            <h1>Water is natures powerup</h1>
-            <p>
-              The right amount of water have magical effect on your health, start
-              measuring now
-            </p>
+        <div className={styles["logo-container"]}>
+          <Logo />
+          <LogoText />
+        </div>
+        <div className={styles["text-container"]}>
+          <h1>Water is natures powerup</h1>
+          <p>
+            The right amount of water have magical effect on your health, start
+            measuring now
+          </p>
           <div>
-            <button onClick={() => signIn()}><span>Start your journey</span><ArrowRight /></button>
+            <button onClick={() => signIn()}>
+              <span>Start your journey</span>
+              <ArrowRight />
+            </button>
           </div>
         </div>
-        <div className={styles['animation-container']}>
-          <div ref={ref} className={styles['animation']}/>
-          <Image src={LandingImg} className={styles.image} alt="Illustration av glada människor" />
+        <div className={styles["animation-container"]}>
+          <div ref={ref} className={styles["animation"]} />
+          <Image
+            src={LandingImg}
+            className={styles.image}
+            alt="Illustration av glada människor"
+          />
         </div>
       </div>
     </>

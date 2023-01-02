@@ -1,6 +1,7 @@
 import { NextPage } from "next";
 import styles from "../styles/SignUpPage.module.scss";
 import Logo from "../public/assets/images/logo.svg";
+import Confirm from "../public/assets/images/confirm.svg";
 
 const Verify: NextPage = () => {
   return (
@@ -13,13 +14,16 @@ const Verify: NextPage = () => {
       </div>
       <div className={styles["confirm-container"]}>
         <div>
-          <h2>Kolla din @mail!</h2>
+          <Confirm />
+        </div>
+        <div>
+          <h2>Kolla din @mail</h2>
           <p>
-            Vi har skickat en aktiveringslänk till den angivna mailen!
+            Vi har skickat en aktiveringslänk till den angivna mailen.
             <br />
-            Vänligen klicka på länken för att fortsätta.
+            Vänligen klicka på länken för att fortsätta
           </p>
-          <p>Kan du inte hitta länken? Kolla din skräppost!</p>
+          <p>Kan du inte hitta länken? Kolla din skräppost</p>
         </div>
       </div>
     </div>

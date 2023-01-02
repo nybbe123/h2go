@@ -77,11 +77,12 @@
     .confirm-container {
       
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
       justify-content: center;
-      height: 20rem;
-      width: 50%;
+      height: 16rem;
+      width: 40%;
+      gap: 2.5rem;
       background-color: #263245;
     }
 
