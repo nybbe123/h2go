@@ -25,7 +25,9 @@ const Verify: NextPage = () => {
               <br />
               Vänligen klicka på länken för att fortsätta
             </p>
-            <p>Kan du inte hitta länken? Kolla din skräppost</p>
+            <p>
+              Kan du inte hitta länken? <b>Kolla din skräppost</b>
+            </p>
           </div>
         </div>
       </div>
