@@ -67,8 +67,8 @@ const SignUp: NextPage<
               Logga in / Registrera
             </button>
             <p>
-              Genom att registrera dig godkänner du våra användarvillkor och
-              sekretesspolicy
+              Genom att registrera dig godkänner du våra <b>användarvillkor</b>{" "}
+              och <b>sekretesspolicy</b>
             </p>
           </form>
         </div>
