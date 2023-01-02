@@ -12,7 +12,7 @@ const Verify: NextPage = () => {
       <div>
         <h1>Bekräftat!</h1>
       </div>
-      <div className={styles["confirm-container"]}>
+      <div className={styles["confirm-text-container"]}>
         <div>
           <Confirm />
         </div>
