@@ -1,0 +1,23 @@
+.root {
+    height: var(--app-height);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10rem;
+    padding: 2rem;
+  
+    @media(max-width: 1550px) {
+      gap: 4rem;
+    }
+  
+    @media(max-width: 1200px) {
+      gap: 0;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  
+    @media(max-width: 470px) {
+      padding: 2rem 1.5rem 3rem 1.5rem;
+    }
+  }
