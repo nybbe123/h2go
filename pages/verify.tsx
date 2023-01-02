@@ -5,7 +5,7 @@ import Logo from "../public/assets/images/logo.svg";
 const Verify: NextPage = () => {
   return (
     <div className={styles.root}>
-      <div className={styles["logo-container-confirmation"]}>
+      <div className={styles["logo-container-sign-up"]}>
         <Logo />
       </div>
       <div>
