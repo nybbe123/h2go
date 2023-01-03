@@ -121,17 +121,19 @@ const GoalPage: NextPage = () => {
           />
         </label>
         <div>
-          <div>
-            <p>{goalValue}</p>
-            <p>ml/dag</p>
-          </div>
-          <div>
-            <button type="button" onClick={increaseGoalValue}>
-              +
-            </button>
-            <button type="button" onClick={decreaseGoalValue}>
-              -
-            </button>
+          <div className={styles["goal-container"]}>
+            <div>
+              <h1>{goalValue}</h1>
+              <h4>ml/dag</h4>
+            </div>
+            <div>
+              <button type="button" onClick={increaseGoalValue}>
+                +
+              </button>
+              <button type="button" onClick={decreaseGoalValue}>
+                -
+              </button>
+            </div>
             <button
               onClick={() =>
                 signOut({ callbackUrl: `${window.location.origin}` })
