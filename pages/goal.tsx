@@ -97,11 +97,13 @@ const GoalPage: NextPage = () => {
         <Logo />
       </div>
       <div>
-        <h1>Välkommen!</h1>
-        <p>
-          Ange ditt namn och ställ in ditt dagliga vattenintag för att komma
-          igång
-        </p>
+        <div>
+          <h1>Välkommen!</h1>
+          <p>
+            Ange ditt namn och ställ in ditt dagliga vattenintag för att komma
+            igång
+          </p>
+        </div>
 
         <form onSubmit={submitFormHandler} className={styles["inputfield"]}>
           <label htmlFor="first">
@@ -126,16 +128,24 @@ const GoalPage: NextPage = () => {
                 <h1>{goalValue}</h1>
                 <h4>ml/dag</h4>
               </div>
-              <div className={styles["add-remove-buttons"]}>
-                <button type="button" onClick={increaseGoalValue}>
+              <div className={styles["add-remove-buttons-container"]}>
+                <button
+                  type="button"
+                  onClick={increaseGoalValue}
+                  className={styles["add-remove-button"]}
+                >
                   +
                 </button>
-                <button type="button" onClick={decreaseGoalValue}>
+                <button
+                  type="button"
+                  onClick={decreaseGoalValue}
+                  className={styles["add-remove-button"]}
+                >
                   -
                 </button>
               </div>
             </div>
-            <div>
+            <div className={styles["goal-info-text"]}>
               <p>
                 En vuxen rekommenderas att dricka minst 1500 ml dagligen
                 <br></br>
