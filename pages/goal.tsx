@@ -93,17 +93,18 @@ const GoalPage: NextPage = () => {
 
   return (
     <div className={styles.root}>
-      <div>
-        <div className={styles["logo-container-sign-up"]}>
-          <Logo />
-        </div>
-        <h1>Välkommen!</h1>
-        <p>
-          Ange ditt namn och ställ in ditt dagliga vattenintag för att komma
-          igång
-        </p>
+      <div className={styles["logo-container-sign-up"]}>
+        <Logo />
       </div>
       <div>
+        <div>
+          <h1>Välkommen!</h1>
+          <p>
+            Ange ditt namn och ställ in ditt dagliga vattenintag för att komma
+            igång
+          </p>
+        </div>
+
         <form onSubmit={submitFormHandler} className={styles["inputfield"]}>
           <label htmlFor="first">
             Namn:
@@ -124,30 +125,45 @@ const GoalPage: NextPage = () => {
           <div>
             <div className={styles["goal-container"]}>
               <div>
-                <h1>{goalValue}</h1>
+                <h1 className={styles["goal-number"]}>{goalValue}</h1>
                 <h4>ml/dag</h4>
               </div>
-              <div>
-                <button type="button" onClick={increaseGoalValue}>
+              <div className={styles["add-remove-buttons-container"]}>
+                <button
+                  type="button"
+                  onClick={increaseGoalValue}
+                  className={styles["add-remove-button"]}
+                >
                   +
                 </button>
-                <button type="button" onClick={decreaseGoalValue}>
+                <button
+                  type="button"
+                  onClick={decreaseGoalValue}
+                  className={styles["add-remove-button"]}
+                >
                   -
                 </button>
               </div>
-              <button
-                onClick={() =>
-                  signOut({ callbackUrl: `${window.location.origin}` })
-                }
-                className={styles["logout-button"]}
-              >
-                LOGGA UT
-              </button>
             </div>
+            <div className={styles["goal-info-text"]}>
+              <p>
+                En vuxen rekommenderas att dricka minst 1500 ml dagligen
+                <br></br>
+                och 2000 ml under varma och aktiva dagar.
+              </p>
+            </div>
+            <button type="submit" className={styles["sign-in-button"]}>
+              Spara val
+            </button>
+            <button
+              onClick={() =>
+                signOut({ callbackUrl: `${window.location.origin}` })
+              }
+              className={styles["logout-button"]}
+            >
+              Logga ut
+            </button>
           </div>
-          <button type="submit" className={styles["sign-in-button"]}>
-            Spara val
-          </button>
         </form>
       </div>
     </div>
