@@ -139,7 +139,7 @@ const GoalPage: NextPage = () => {
                 onClick={() =>
                   signOut({ callbackUrl: `${window.location.origin}` })
                 }
-                className={styles["button"]}
+                className={styles["logout-button"]}
               >
                 LOGGA UT
               </button>
