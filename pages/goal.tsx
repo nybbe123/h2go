@@ -92,7 +92,7 @@ const GoalPage: NextPage = () => {
   }
 
   return (
-    <>
+    <div className={styles.root}>
       <div>
         <div className={styles["logo-container-sign-up"]}>
           <Logo />
@@ -147,7 +147,7 @@ const GoalPage: NextPage = () => {
           Spara val
         </button>
       </form>
-    </>
+    </div>
   );
 };
 
