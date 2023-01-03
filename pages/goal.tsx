@@ -103,50 +103,53 @@ const GoalPage: NextPage = () => {
           igång
         </p>
       </div>
-      <form onSubmit={submitFormHandler} className={styles["inputfield"]}>
-        <label htmlFor="first">
-          Namn:
-          <input
-            type="text"
-            id="first"
-            name="first"
-            required
-            minLength={2}
-            maxLength={12}
-            pattern="[a-ö]{1,15}"
-            title="Ditt namn måste innehålla mellan 2 och 12 bokstäver (a till ö)."
-            placeholder="Skriv ditt namn här"
-            onChange={handleChange}
-            className={styles["inputfield"]}
-          />
-        </label>
-        <div>
-          <div className={styles["goal-container"]}>
-            <div>
-              <h1>{goalValue}</h1>
-              <h4>ml/dag</h4>
-            </div>
-            <div>
-              <button type="button" onClick={increaseGoalValue}>
-                +
+      <div>
+        <form onSubmit={submitFormHandler} className={styles["inputfield"]}>
+          <label htmlFor="first">
+            Namn:
+            <input
+              type="text"
+              id="first"
+              name="first"
+              required
+              minLength={2}
+              maxLength={12}
+              pattern="[a-ö]{1,15}"
+              title="Ditt namn måste innehålla mellan 2 och 12 bokstäver (a till ö)."
+              placeholder="Skriv ditt namn här"
+              onChange={handleChange}
+              className={styles["inputfield"]}
+            />
+          </label>
+          <div>
+            <div className={styles["goal-container"]}>
+              <div>
+                <h1>{goalValue}</h1>
+                <h4>ml/dag</h4>
+              </div>
+              <div>
+                <button type="button" onClick={increaseGoalValue}>
+                  +
+                </button>
+                <button type="button" onClick={decreaseGoalValue}>
+                  -
+                </button>
+              </div>
+              <button
+                onClick={() =>
+                  signOut({ callbackUrl: `${window.location.origin}` })
+                }
+                className={styles["button"]}
+              >
+                LOGGA UT
               </button>
-              <button type="button" onClick={decreaseGoalValue}>
-                -
-              </button>
             </div>
-            <button
-              onClick={() =>
-                signOut({ callbackUrl: `${window.location.origin}` })
-              }
-            >
-              LOGGA UT
-            </button>
           </div>
-        </div>
-        <button type="submit" className={styles["sign-in-button"]}>
-          Spara val
-        </button>
-      </form>
+          <button type="submit" className={styles["sign-in-button"]}>
+            Spara val
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
