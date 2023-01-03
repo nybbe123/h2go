@@ -125,7 +125,7 @@ const GoalPage: NextPage = () => {
           <div>
             <div className={styles["goal-container"]}>
               <div>
-                <h1>{goalValue}</h1>
+                <h1 className={styles["goal-number"]}>{goalValue}</h1>
                 <h4>ml/dag</h4>
               </div>
               <div className={styles["add-remove-buttons-container"]}>
