@@ -12,39 +12,39 @@ export interface UserData {
   id: string | undefined;
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const session = await getSession(context);
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
+//   if (!session) {
+//     return {
+//       redirect: {
+//         destination: "/",
+//         permanent: false,
+//       },
+//     };
+//   }
 
-  let user = await prisma.user.findUnique({
-    where: {
-      email: session?.user.email,
-    },
-  });
+//   let user = await prisma.user.findUnique({
+//     where: {
+//       email: session?.user.email,
+//     },
+//   });
 
-  user = JSON.parse(JSON.stringify(user));
+//   user = JSON.parse(JSON.stringify(user));
 
-  if (user?.name) {
-    return {
-      redirect: {
-        destination: "/userboard",
-        permanent: false,
-      },
-    };
-  }
+//   if (user?.name) {
+//     return {
+//       redirect: {
+//         destination: "/userboard",
+//         permanent: false,
+//       },
+//     };
+//   }
 
-  return {
-    props: { session },
-  };
-};
+//   return {
+//     props: { session },
+//   };
+// };
 
 const GoalPage: NextPage = () => {
   const { data: session } = useSession();
@@ -93,17 +93,16 @@ const GoalPage: NextPage = () => {
 
   return (
     <div className={styles.root}>
+      <div className={styles["logo-container-sign-up"]}>
+        <Logo />
+      </div>
       <div>
-        <div className={styles["logo-container-sign-up"]}>
-          <Logo />
-        </div>
         <h1>Välkommen!</h1>
         <p>
           Ange ditt namn och ställ in ditt dagliga vattenintag för att komma
           igång
         </p>
-      </div>
-      <div>
+
         <form onSubmit={submitFormHandler} className={styles["inputfield"]}>
           <label htmlFor="first">
             Namn:
@@ -127,7 +126,7 @@ const GoalPage: NextPage = () => {
                 <h1>{goalValue}</h1>
                 <h4>ml/dag</h4>
               </div>
-              <div>
+              <div className={styles["add-remove-buttons"]}>
                 <button type="button" onClick={increaseGoalValue}>
                   +
                 </button>
@@ -135,19 +134,26 @@ const GoalPage: NextPage = () => {
                   -
                 </button>
               </div>
-              <button
-                onClick={() =>
-                  signOut({ callbackUrl: `${window.location.origin}` })
-                }
-                className={styles["logout-button"]}
-              >
-                LOGGA UT
-              </button>
             </div>
+            <div>
+              <p>
+                En vuxen rekommenderas att dricka minst 1500 ml dagligen
+                <br></br>
+                och 2000 ml under varma och aktiva dagar.
+              </p>
+            </div>
+            <button type="submit" className={styles["sign-in-button"]}>
+              Spara val
+            </button>
+            <button
+              onClick={() =>
+                signOut({ callbackUrl: `${window.location.origin}` })
+              }
+              className={styles["logout-button"]}
+            >
+              Logga ut
+            </button>
           </div>
-          <button type="submit" className={styles["sign-in-button"]}>
-            Spara val
-          </button>
         </form>
       </div>
     </div>

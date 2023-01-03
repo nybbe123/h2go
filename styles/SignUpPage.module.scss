@@ -56,7 +56,8 @@
   margin-top: 2rem;
   padding: 1rem 2rem;
   width: 100%;
-  background-color: var(--primary-blue);
+  background-color: transparent;
+  border: solid 1px;
   color: var(--white);
   font-size: 1.1rem;
   letter-spacing: 1px;
@@ -64,12 +65,13 @@
   display: flex;
   border-radius: 6px;
   transition: 250ms;
-  border: none;
+
   justify-content: center;
 
   &:hover {
     cursor: pointer;
     background-color: var(--dark-blue);
+    color: var(--white);
     }
 
 }
@@ -133,12 +135,14 @@
     }
 
     .goal-container {
+      margin-top: 2rem;
       padding: 2rem;
-      border-style: solid 4px white;
-      border-color: white;
+      border: solid 1px;
       border-radius: 6px;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
    
 
     }
