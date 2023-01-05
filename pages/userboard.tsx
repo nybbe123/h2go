@@ -9,6 +9,7 @@ import BigBubble from '../public/assets/images/big-bubble.webp'
 import SmalBubble from '../public/assets/images/bubble.webp'
 import Image from "next/image";
 import Logo from "../public/assets/images/logo.svg";
+import { getUser } from "../prisma/user";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
@@ -22,22 +23,26 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 
-  let user = await prisma.user.findUnique({
-    where: {
-      email: session.user.email,
-    },
-  });
+  let user = await getUser(session.user.email)
 
   user = await JSON.parse(JSON.stringify(user))
 
-  if (!user?.name) {
-    return {
-      redirect: {
-        destination: "/goal",
-        permanent: false,
-      },
-    }
-  }
+  // let user = await prisma.user.findUnique({
+  //   where: {
+  //     email: session.user.email,
+  //   },
+  // });
+
+  // user = await JSON.parse(JSON.stringify(user))
+
+  // if (!user?.name) {
+  //   return {
+  //     redirect: {
+  //       destination: "/goal",
+  //       permanent: false,
+  //     },
+  //   }
+  // }
 
   return {
     props: {
