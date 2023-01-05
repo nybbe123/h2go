@@ -31,6 +31,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   user = await JSON.parse(JSON.stringify(user))
 
+  console.log(user)
+
   if (!user?.name) {
     return {
       redirect: {
