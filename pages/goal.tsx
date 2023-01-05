@@ -85,11 +85,13 @@ const GoalPage: NextPage = () => {
     });
 
     if (response.ok) {
-      const res = await response.json();
-      console.log(res);
-      router.push("/userboard");
-    } else {
-      console.log("error");
+      try {
+        const res = await response.json();
+        console.log(res);
+        router.push("/userboard");
+      } catch(err) {
+        console.log(err)
+      }
     }
   }
 
