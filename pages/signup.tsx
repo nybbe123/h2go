@@ -54,6 +54,27 @@ const SignUp: NextPage<
     }
   }, [email])
 
+  useEffect(() => {
+    const val = document.getElementById('email')
+    const mail = val as HTMLInputElement
+
+    const handleInput = () => {
+      if (!mail.validity.typeMismatch) {
+        mail.setCustomValidity(`Ogiltigt format. Vänligen kontrollera att du fyllt i din mailadress på ett korrekt sätt. exempel: email@exempel.se`);
+      } else {
+        mail.setCustomValidity("");
+      }
+    }
+
+    console.log('kör')
+
+    window.addEventListener('input', handleInput);
+
+    return () => {
+        window.removeEventListener('input', handleInput)
+    }
+  })
+
   return (
     <div className={styles.root}>
       <Image src={Bubble} alt="bubble" className={styles.bubbleOne}/>
@@ -84,7 +105,6 @@ const SignUp: NextPage<
                 type="text"
                 required
                 pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                title="Ogiltigt format. Vänligen kontrollera din mailadress. Exempel: email@exempel.com"
                 onChange={emailHandler}
               />
             </label>
