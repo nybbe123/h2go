@@ -1,5 +1,5 @@
 import prisma from "../prisma/prismaDb";
-import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from "next"
+import { GetServerSideProps, InferGetServerSidePropsType, NextPage, NextPageContext } from "next"
 import { getSession, signOut } from "next-auth/react"
 import { useEffect, useState } from "react";
 import { UserData } from "./goal";
@@ -11,7 +11,8 @@ import Image from "next/image";
 import Logo from "../public/assets/images/logo.svg";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
+  const { req } = context;
+  const session = await getSession({req});
 
   if (!session) {
     return {

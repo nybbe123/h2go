@@ -17,9 +17,10 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    session: async ({ session, token }) => {
+    session: async ({ session, token, user }) => {
       if (session?.user) {
         session.user.id = token.sub;
+        session.user = user
       }
       return session;
     },
@@ -32,8 +33,6 @@ export const authOptions = {
   },
   session: {
     strategy: 'jwt',
-    jwt: true,
-    maxAge: 30 * 24 * 60 * 60
   },
 }
 

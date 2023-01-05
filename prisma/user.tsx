@@ -6,6 +6,7 @@ export interface User {
   email?: string;
   image?: string;
   goal?: string;
+  intake?: string;
 }
 
 export const getAllUsers = async () => {
