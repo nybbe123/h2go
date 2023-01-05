@@ -30,8 +30,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   user = await JSON.parse(JSON.stringify(user))
 
-  console.log(user)
-
   if (!user?.name) {
     return {
       redirect: {
@@ -109,7 +107,6 @@ InferGetServerSidePropsType<typeof getServerSideProps>
           <div className={styles.name}>
             <h1>Hej {user?.name}!</h1>
             <p>Glöm inte dricka vatten idag</p>
-            {user}
           </div>
           <div className={styles['intake-data']}>
             <div className={styles.percentage}>
