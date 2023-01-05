@@ -7,6 +7,10 @@ import {
 } from "next-auth/react";
 import styles from "../styles/SignUpPage.module.scss";
 import Logo from "../public/assets/images/logo.svg";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import Bubble from '../public/assets/images/bubble.webp'
+import Image from "next/image";
 
 export async function getServerSideProps(context: NextPageContext) {
   const { req } = context;
@@ -33,18 +37,36 @@ export async function getServerSideProps(context: NextPageContext) {
 const SignUp: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ providers, csrfToken }) => {
+  const router = useRouter()
+  const [email, setEmail] = useState<string>('')
+  const [formIsValid, setFormIsValid] = useState(false)
+
+  function emailHandler(e: React.ChangeEvent<HTMLInputElement>) {
+    const val = e.target.value
+    setEmail(val)
+  }
+
+  useEffect(() => {
+    if(email === '') {
+      setFormIsValid(false)
+    } else {
+      setFormIsValid(true)
+    }
+  }, [email])
+
   return (
     <div className={styles.root}>
-      <div className={styles["logo-container-sign-up"]}>
+      <Image src={Bubble} alt="bubble" className={styles.bubbleOne}/>
+      <Image src={Bubble} alt="bubble" className={styles.bubbleTwo}/>
+      <Image src={Bubble} alt="bubble" className={styles.bubbleThree}/>
+      <div className={styles["logo-container-sign-up"]} onClick={() => router.push('/')}>
         <Logo />
       </div>
-      <div>
+      <div className={styles['form-container']}>
         <div>
           <h1>Hallå där!</h1>
           <p>
-            På H2:GO använder vi inte lösenord.
-            <br></br>
-            Skriv bara in din email nedan för att registrera dig eller logga in.
+            H2:GO är lösenordsfritt. Skriv bara in din email adress nedan för att logga in eller registrera ett nytt konto.
           </p>
         </div>
         <div>
@@ -57,20 +79,25 @@ const SignUp: NextPage<
             <label htmlFor="email">
               <span>Email</span>
               <input
-                className={styles["inputfield"]}
                 id="email"
                 name="email"
                 type="text"
+                required
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                title="Ogiltigt format. Vänligen kontrollera din mailadress. Exempel: email@exempel.com"
+                onChange={emailHandler}
               />
             </label>
-            <button type="submit" className={styles["sign-in-button"]}>
+            <button type="submit" className={`${styles["login-button"]} ${formIsValid ? styles["active"] : ''}`}>
               Logga in / Registrera
             </button>
-            <p>
-              Genom att registrera dig godkänner du våra <b>användarvillkor</b>{" "}
-              och <b>sekretesspolicy</b>
-            </p>
           </form>
+          <div>
+          <p className={styles.policy}>
+              Genom att fortsätta godkänner du våra <b className={styles['text-overlay']}>användarvillkor</b>{" "}
+              och <b className={styles['text-overlay']}>sekretesspolicy</b>
+            </p>
+          </div>
         </div>
 
         {providers &&
