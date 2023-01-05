@@ -59,7 +59,7 @@ const SignUp: NextPage<
     const mail = val as HTMLInputElement
 
     const handleInput = () => {
-      if (!mail.validity.typeMismatch) {
+      if (mail.validity.typeMismatch) {
         mail.setCustomValidity(`Ogiltigt format. Vänligen kontrollera att du fyllt i din mailadress på ett korrekt sätt. exempel: email@exempel.se`);
       } else {
         mail.setCustomValidity("");
