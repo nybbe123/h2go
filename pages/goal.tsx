@@ -7,9 +7,10 @@ import styles from "../styles/SignUpPage.module.scss";
 import Logo from "../public/assets/images/logo.svg";
 
 export interface UserData {
-  name: string | undefined;
-  goal: string | undefined;
+  name?: string | undefined;
+  goal?: string | undefined;
   id: string | undefined;
+  intake?: string | undefined;
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -72,6 +73,7 @@ const GoalPage: NextPage = () => {
       id: session?.user?.id,
       name: name,
       goal: goalValue.toString(),
+      intake: "0"
     };
 
     const response = await fetch(`/api/user`, {
