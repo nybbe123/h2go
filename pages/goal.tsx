@@ -72,8 +72,8 @@ const GoalPage: NextPage = () => {
     const data: UserData = {
       id: session?.user?.id,
       name: name,
-      goal: goalValue.toString(),
-      intake: "0"
+      // goal: goalValue.toString(),
+      // intake: "0"
     };
 
     const response = await fetch(`/api/user`, {
@@ -87,7 +87,6 @@ const GoalPage: NextPage = () => {
     if (response.ok) {
       try {
         const res = await response.json();
-        console.log(res);
         router.push("/userboard");
       } catch(err) {
         console.log(err)
