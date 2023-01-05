@@ -20,6 +20,8 @@ PUT http://localhost:3000/api/user HTTP/1.1
 content-type: application/json
 
 {
-    "id": "clc958b5j0000usfw7jty2bnn",
-    "name": "Lalala"
+    "id": "clcjeog670000kw0875rr9lx3",
+    "goal": "1500",
+    "intake": "1500"
+
 }

@@ -11,8 +11,7 @@ import Image from "next/image";
 import Logo from "../public/assets/images/logo.svg";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { req } = context;
-  const session = await getSession({req});
+  const session = await getSession(context);
 
   if (!session) {
     return {
@@ -83,7 +82,7 @@ InferGetServerSidePropsType<typeof getServerSideProps>
     })
 
     if(response.ok) {
-      const data = response.json()
+      const data = await response.json()
       return data
     } else {
       console.log('error')

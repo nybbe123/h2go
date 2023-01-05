@@ -43,8 +43,8 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
-  goal          String?
-  intake        String?
+  goal          String?   
+  intake        String?   @default("0")
   accounts      Account[]
   sessions      Session[]
 }
