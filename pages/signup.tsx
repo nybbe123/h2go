@@ -39,7 +39,8 @@ const SignUp: NextPage<
 > = ({ providers, csrfToken }) => {
   const router = useRouter()
   const [email, setEmail] = useState<string>('')
-  const [formIsValid, setFormIsValid] = useState(false)
+  const [formIsEmpty, setFormIsEmpty] = useState(false)
+  const [formIsValid, setFormIsValid] = useState(true)
 
   function emailHandler(e: React.ChangeEvent<HTMLInputElement>) {
     const val = e.target.value
@@ -48,9 +49,9 @@ const SignUp: NextPage<
 
   useEffect(() => {
     if(email === '') {
-      setFormIsValid(false)
+      setFormIsEmpty(false)
     } else {
-      setFormIsValid(true)
+      setFormIsEmpty(true)
     }
   }, [email])
 
@@ -58,15 +59,16 @@ const SignUp: NextPage<
     const val = document.getElementById('email')
     const mail = val as HTMLInputElement
 
+    
     const handleInput = () => {
-      if (mail.validity.typeMismatch) {
+      if (mail.validity.patternMismatch) {
         mail.setCustomValidity(`Ogiltigt format. Vänligen kontrollera att du fyllt i din mailadress på ett korrekt sätt. exempel: email@exempel.se`);
+        setFormIsValid(false)
       } else {
         mail.setCustomValidity("");
+        setFormIsValid(true)
       }
     }
-
-    console.log('kör')
 
     window.addEventListener('input', handleInput);
 
@@ -102,13 +104,14 @@ const SignUp: NextPage<
               <input
                 id="email"
                 name="email"
-                type="text"
+                type="email"
                 required
                 pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                 onChange={emailHandler}
+                className={!formIsValid ? styles.invalid : ''}
               />
             </label>
-            <button type="submit" className={`${styles["login-button"]} ${formIsValid ? styles["active"] : ''}`}>
+            <button type="submit" className={`${styles["login-button"]} ${formIsEmpty ? styles["active"] : ''}`}>
               Logga in / Registrera
             </button>
           </form>

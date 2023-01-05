@@ -94,6 +94,10 @@
       &:focus {
         outline: 2px solid var(--primary-blue);
       }
+
+      &.invalid {
+        outline: 2px solid var(--error-red);
+      }
     }
 }
 
