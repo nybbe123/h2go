@@ -16,5 +16,6 @@ declare module "next-auth" {
     email: string
     goal: string
     name: string
+    intake: string
   }
 }
