@@ -24,11 +24,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   let user = await prisma.user.findUnique({
     where: {
-      email: session?.user.email,
+      email: session.user.email,
     },
   });
 
-  user = JSON.parse(JSON.stringify(user))
+  user = await JSON.parse(JSON.stringify(user))
 
   console.log(user)
 
