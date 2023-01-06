@@ -115,6 +115,7 @@ InferGetStaticPropsType<typeof getStaticProps>
   const [glasLeft, setGlasLeft] = useState<number>(() => Math.ceil((user.goal-intake)/125))
 
   function addIntake(value: number) {
+    console.log('hej')
     setIntake((prevVal) => {
       return prevVal + value 
     })
