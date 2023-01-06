@@ -51,6 +51,7 @@ import { getUser } from "../../prisma/user";
 //   };
 // }
 
+// get static paths from api
 export const getStaticPaths = async () => {
   const users = await prisma.user.findMany({
       select: {
@@ -79,7 +80,7 @@ export const getStaticProps = async ({params}: GetStaticPropsContext<{id: string
 
   const {id} = params
 
-  const user = await prisma.user.findUnique({
+  let user = await prisma.user.findUnique({
       where: {
         id
       },
@@ -90,6 +91,8 @@ export const getStaticProps = async ({params}: GetStaticPropsContext<{id: string
         notFound: true,
     };
 }
+
+user = await JSON.parse(JSON.stringify(user))
 
 return {
     props: {
@@ -103,9 +106,9 @@ const UserBoard: NextPage<
 InferGetStaticPropsType<typeof getStaticProps>
 > = ({ user }) => {
   const DUMMY_INTAKEDATA = [125, 175, 250, 500, 750, 1000]
-  const [intake, setIntake] = useState<number>(parseInt(user.intake!))
-  const [percentage, setPercentage] = useState<number>(() => Math.floor((intake/+user.goal!) * 100))
-  const [glasLeft, setGlasLeft] = useState<number>(() => Math.ceil((+user.goal!-intake)/125))
+  const [intake, setIntake] = useState<number>(parseInt(user?.intake!))
+  const [percentage, setPercentage] = useState<number>(() => Math.floor((intake/+user?.goal!) * 100))
+  const [glasLeft, setGlasLeft] = useState<number>(() => Math.ceil((+user?.goal!-intake)/125))
 
   function addIntake(value: number) {
     setIntake((prevVal) => {
@@ -120,7 +123,7 @@ InferGetStaticPropsType<typeof getStaticProps>
 
   async function saveIntake() {
     const data: UserData = {
-      id: user.id,
+      id: user?.id,
       intake: intake.toString()
     };
 
@@ -141,11 +144,11 @@ InferGetStaticPropsType<typeof getStaticProps>
   }
 
   useEffect(() => {
-    setPercentage(() => Math.floor((intake/+user.goal!) * 100))
+    setPercentage(() => Math.floor((intake/+user?.goal!) * 100))
   }, [intake])
 
   useEffect(() => {
-    setGlasLeft(() => Math.ceil((+user.goal!-intake)/125))
+    setGlasLeft(() => Math.ceil((+user?.goal!-intake)/125))
   }, [intake])
 
   return (
@@ -170,7 +173,7 @@ InferGetStaticPropsType<typeof getStaticProps>
             <div className={styles['intake']}>
               <div>
                 <h3>{intake}ml</h3>
-                <p>of {user.goal}ml</p>
+                <p>of {user?.goal}ml</p>
               </div>
               <div>
                 <h3>{glasLeft} Glas kvar</h3>
