@@ -85,7 +85,7 @@ const GoalPage: NextPage = () => {
 
     if (response.ok) {
         const res = await response.json();
-        router.push("/userboard");
+        router.push(`/userboard/${session?.user.id}`);
       } else {
         console.log('error')
       }
