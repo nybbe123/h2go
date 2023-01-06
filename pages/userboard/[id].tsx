@@ -188,18 +188,18 @@ InferGetStaticPropsType<typeof getStaticProps>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis doloribus mollitia reprehenderit tenetur nemo temporibus exercitationem sapiente sequi, aliquam eligendi.</p>
           </div>
         </div>
-        <div className={styles['interaction-field']}>
           <div className={styles.menu}>
             <MenuIcon />
           </div>
+        <div className={styles['interaction-field']}>
+          <p className={styles['add-intake-title']}>Lägg till vattenintag</p>
           <div className={styles['add-intake-container']}>
-              <p>Lägg till vattenintag</p>
             <div className={styles['btn-container']}>
             {DUMMY_INTAKEDATA.map((intakeData, index) => {
               return <button type="button" key={index} onClick={() => addIntake(intakeData)}>{intakeData}ml</button>
             })}
             </div>
-            <button onClick={() => signOut({callbackUrl: `${window.location.origin}`})}>Sign out</button>
+            {/* <button onClick={() => signOut({callbackUrl: `${window.location.origin}`})}>Sign out</button> */}
           </div>
           <p className={styles['history-title']}>Intag senaste veckan</p>
           <div className={styles['history-container']}>
