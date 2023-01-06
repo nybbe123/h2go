@@ -11,6 +11,9 @@ import Image from "next/image";
 import Logo from "../../public/assets/images/logo.svg";
 import CheckBlue from "../../public/assets/images/check-blue.svg";
 import CheckRed from "../../public/assets/images/check-red.svg";
+import Star from "../../public/assets/images/star.svg";
+import WaterDrop from "../../public/assets/images/water-drop.svg";
+import WaterGlas from "../../public/assets/images/water-glas.svg";
 
 // export const getServerSideProps: GetServerSideProps = async (context) => {
 //   const session = await getSession(context);
@@ -150,7 +153,13 @@ InferGetStaticPropsType<typeof getStaticProps>
   }, [intake])
 
   useEffect(() => {
-    setGlasLeft(() => Math.ceil((+user?.goal!-intake)/125))
+    setGlasLeft(() => {
+      if(Math.ceil((+user?.goal!-intake)/125) <= 0) {
+        return 0
+      } else {
+        return Math.ceil((+user?.goal!-intake)/125)
+      }
+    })
   }, [intake])
 
   return (
@@ -168,16 +177,19 @@ InferGetStaticPropsType<typeof getStaticProps>
           </div>
           <div className={styles['intake-data']}>
             <div className={styles.percentage}>
+              <Star />
               <p>Dagens mål</p>
               <h3>{percentage}%</h3>
               <p>avklarat</p>
             </div>
             <div className={styles['intake']}>
               <div>
+              <WaterDrop />
                 <h3>{intake}ml</h3>
                 <p>of {user?.goal}ml</p>
               </div>
               <div>
+                <WaterGlas />
                 <h3>{glasLeft} Glas kvar</h3>
                 <p>125ml</p>
               </div>
@@ -201,7 +213,7 @@ InferGetStaticPropsType<typeof getStaticProps>
             </div>
             {/* <button onClick={() => signOut({callbackUrl: `${window.location.origin}`})}>Sign out</button> */}
           </div>
-          <p className={styles['history-title']}>Intag senaste veckan</p>
+          <p className={styles['history-title']}>senaste dagarna</p>
           <div className={styles['history-container']}>
             <ul>
               {DUMMY_INTAKES.map((intake, index) => {

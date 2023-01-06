@@ -16,7 +16,7 @@
   }
 
   @media (max-width: 640px) {
-    gap: 1rem;
+    gap: 0rem;
   }
 }
 
@@ -80,7 +80,12 @@
     }
 
     @media(max-width: 640px) {
-      height: 14rem;
+      height: 18rem;
+      margin-top: 2rem;
+    }
+
+    @media(max-width: 460px) {
+      gap: 1rem;
     }
 
     .percentage {
@@ -94,6 +99,20 @@
       background-color: var(--bg);
       border-radius: 6px;
 
+      svg{
+        scale: 150%;
+        margin-bottom: 1rem;
+
+        @media(max-width: 640px) {
+          scale: 100%;
+          margin-bottom: 0;
+        }
+      }
+
+      @media(max-width: 640px) {
+        border-color: var(--border-grey);
+      }
+
       h3 {
         font-size: 7rem;
         line-height: 0;
@@ -106,7 +125,20 @@
 
         @media(max-width: 640px) {
           font-size: 4rem;
+          margin: 1.5rem 2rem;
+        }
+
+        @media(max-width: 390px) {
+          font-size: 3.5rem;
           margin: 1.5rem 1rem;
+        }
+      }
+
+      p {
+        color: var(--light-grey);
+
+        @media(max-width: 460px) {
+          font-size: .9rem;
         }
       }
     }
@@ -118,6 +150,16 @@
       width: 100%;
       height: 100%;
 
+      svg{
+        scale: 150%;
+        margin-bottom: 1rem;
+
+        @media(max-width: 640px) {
+          scale: 100%;
+          margin-bottom: 0;
+        }
+      }
+
       div {
         display: flex;
         flex-direction: column;
@@ -128,22 +170,40 @@
         background-color: var(--bg);
         border-radius: 6px;
 
+        @media(max-width: 640px) {
+          border-color: var(--border-grey);
+        }
+
         h3 {
           font-size: 2.3rem;
           line-height: 0;
-          margin: 1rem 0;
+          margin: 1.5rem 0;
 
           @media(max-width: 1180px) {
             font-size: 1.8rem;
+            margin: 1rem 0;
           }
 
           @media(max-width: 640px) {
             font-size: 1.5rem;
+            font-weight: 100;
+            margin-top: 1.5rem;
+          }
+
+          @media(max-width: 460px) {
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            margin-bottom: .5rem;
           }
         }
 
         p {
           line-height: 0;
+          color: var(--border-grey);
+
+          @media(max-width: 460px) {
+            font-size: .9rem;
+          }
         }
       }
     }
@@ -188,6 +248,10 @@
     border-top-left-radius: 1.5rem;
     border-top-right-radius: 1.5rem;
     border-bottom-left-radius: 0;
+  }
+
+  @media (max-width: 640px) {
+    background-color: transparent;
   }
 
   @media (max-width: 460px) {
@@ -364,7 +428,7 @@
             padding: .3rem .4rem .1rem .5rem;
           }
 
-          @media(max-width: 370px) {
+          @media(max-width: 355px) {
             display: none;
           }
         }
@@ -417,6 +481,10 @@
     background-color: var(--dark-blue);
     border-color: var(--dark-blue);
     cursor: pointer;
+  }
+
+  @media(max-width: 460px) {
+    right: 1.5rem;
   }
 }
 
