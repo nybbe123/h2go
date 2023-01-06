@@ -16,7 +16,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (session && session.user?.name) {
     return {
       redirect: {
-        destination: "/userboard",
+        destination: `/userboard/${session.user.id}`,
         permanent: false,
       },
     };

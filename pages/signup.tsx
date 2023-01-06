@@ -21,7 +21,7 @@ export async function getServerSideProps(context: NextPageContext) {
   if (session) {
     return {
       redirect: {
-        destination: "/board",
+        destination: `/userboard/${session.user.id}`,
         permanent: false,
       },
     };
