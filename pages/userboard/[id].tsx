@@ -83,13 +83,6 @@ export const getStaticProps = async ({params}: GetStaticPropsContext<{id: string
       where: {
         id
       },
-      select: {
-        id: true,
-        name: true,
-        goal: true,
-        intake: true,
-        email: true,
-      }
   });
 
   if (!user) {
@@ -115,7 +108,6 @@ InferGetStaticPropsType<typeof getStaticProps>
   const [glasLeft, setGlasLeft] = useState<number>(() => Math.ceil((+user.goal!-intake)/125))
 
   function addIntake(value: number) {
-    console.log('hej')
     setIntake((prevVal) => {
       return prevVal + value 
     })
