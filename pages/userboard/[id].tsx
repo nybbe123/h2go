@@ -83,13 +83,13 @@ export const getStaticProps = async ({params}: GetStaticPropsContext<{id: string
       where: {
         id
       },
-      // select: {
-      //   id: true,
-      //   name: true,
-      //   goal: true,
-      //   intake: true,
-      //   email: true,
-      // }
+      select: {
+        id: true,
+        name: true,
+        goal: true,
+        intake: true,
+        email: true,
+      }
   });
 
   if (!user) {
