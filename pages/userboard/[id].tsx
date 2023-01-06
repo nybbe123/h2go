@@ -110,9 +110,9 @@ const UserBoard: NextPage<
 InferGetStaticPropsType<typeof getStaticProps>
 > = ({ user }) => {
   const DUMMY_INTAKEDATA = [125, 175, 250, 500, 750, 1000]
-  const [intake, setIntake] = useState<number>(parseInt(user.intake))
-  const [percentage, setPercentage] = useState<number>(() => Math.floor((intake/user.goal) * 100))
-  const [glasLeft, setGlasLeft] = useState<number>(() => Math.ceil((user.goal-intake)/125))
+  const [intake, setIntake] = useState<number>(parseInt(user.intake!))
+  const [percentage, setPercentage] = useState<number>(() => Math.floor((intake/user.goal!) * 100))
+  const [glasLeft, setGlasLeft] = useState<number>(() => Math.ceil((user.goal!-intake)/125))
 
   function addIntake(value: number) {
     console.log('hej')
@@ -149,11 +149,11 @@ InferGetStaticPropsType<typeof getStaticProps>
   }
 
   useEffect(() => {
-    setPercentage(() => Math.floor((intake/user.goal) * 100))
+    setPercentage(() => Math.floor((intake/user.goal!) * 100))
   }, [intake])
 
   useEffect(() => {
-    setGlasLeft(() => Math.ceil((user.goal-intake)/125))
+    setGlasLeft(() => Math.ceil((user.goal!-intake)/125))
   }, [intake])
 
   return (
