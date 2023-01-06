@@ -9,7 +9,8 @@ import BigBubble from '../../public/assets/images/big-bubble.webp'
 import SmalBubble from '../../public/assets/images/bubble.webp'
 import Image from "next/image";
 import Logo from "../../public/assets/images/logo.svg";
-import { getUser } from "../../prisma/user";
+import CheckBlue from "../../public/assets/images/check-blue.svg";
+import CheckRed from "../../public/assets/images/check-red.svg";
 
 // export const getServerSideProps: GetServerSideProps = async (context) => {
 //   const session = await getSession(context);
@@ -106,6 +107,7 @@ const UserBoard: NextPage<
 InferGetStaticPropsType<typeof getStaticProps>
 > = ({ user }) => {
   const DUMMY_INTAKEDATA = [125, 175, 250, 500, 750, 1000]
+  const DUMMY_INTAKES = [1500, 1250, 1500, 1250, 1500, 1250, 1500]
   const [intake, setIntake] = useState<number>(parseInt(user?.intake!))
   const [percentage, setPercentage] = useState<number>(() => Math.floor((intake/+user?.goal!) * 100))
   const [glasLeft, setGlasLeft] = useState<number>(() => Math.ceil((+user?.goal!-intake)/125))
@@ -198,6 +200,29 @@ InferGetStaticPropsType<typeof getStaticProps>
             })}
             </div>
             <button onClick={() => signOut({callbackUrl: `${window.location.origin}`})}>Sign out</button>
+          </div>
+          <p className={styles['history-title']}>Intag senaste veckan</p>
+          <div className={styles['history-container']}>
+            <ul>
+              {DUMMY_INTAKES.map((intake, index) => {
+                return (
+                  <li key={index}>
+                    <div className={styles.date}>
+                      <p>mon</p>
+                      <p className={styles.day}>12</p>
+                      <p>dec</p>
+                    </div>
+                    <div className={styles['history-intake']}>
+                      <p>100% completed</p>
+                      <p>{intake}/1500ml</p>
+                    </div>
+                    <div className={styles['icon-indicator']}>
+                      <CheckBlue />
+                    </div>
+                  </li>
+                )
+              })}
+            </ul>
           </div>
         </div>
       </div>
