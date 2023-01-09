@@ -1,12 +1,17 @@
 import { NextPage } from "next";
-import styles from "../styles/SignUpPage.module.scss";
+import styles from "../styles/ConfirmationPage.module.scss";
 import Logo from "../public/assets/images/logo.svg";
 import Confirm from "../public/assets/images/confirm.svg";
+import Bubble from "../public/assets/images/bubble.webp";
+import Image from "next/image";
 
 const Verify: NextPage = () => {
   return (
     <div className={styles.root}>
-      <div className={styles["logo-container-sign-up"]}>
+      <Image src={Bubble} alt="bubble" className={styles.bubbleOne} />
+      <Image src={Bubble} alt="bubble" className={styles.bubbleTwo} />
+      <Image src={Bubble} alt="bubble" className={styles.bubbleThree} />
+      <div className={styles["logo-container-verify"]}>
         <Logo />
       </div>
       <div className={styles["confirm-container"]}>

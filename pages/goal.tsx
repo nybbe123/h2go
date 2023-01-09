@@ -3,8 +3,10 @@ import { getSession, signOut, useSession } from "next-auth/react";
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/router";
 import prisma from "../prisma/prismaDb";
-import styles from "../styles/SignUpPage.module.scss";
+import styles from "../styles/GoalPage.module.scss";
 import Logo from "../public/assets/images/logo.svg";
+import Image from "next/image";
+import Bubble from "../public/assets/images/bubble.webp";
 
 export interface UserData {
   name?: string | undefined;
@@ -13,39 +15,39 @@ export interface UserData {
   intake?: string | undefined;
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const session = await getSession(context);
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
+//   if (!session) {
+//     return {
+//       redirect: {
+//         destination: "/",
+//         permanent: false,
+//       },
+//     };
+//   }
 
-  let user = await prisma.user.findUnique({
-    where: {
-      email: session?.user.email,
-    },
-  });
+//   let user = await prisma.user.findUnique({
+//     where: {
+//       email: session?.user.email,
+//     },
+//   });
 
-  user = JSON.parse(JSON.stringify(user));
+//   user = JSON.parse(JSON.stringify(user));
 
-  if (user?.name) {
-    return {
-      redirect: {
-        destination: `/userboard/${user.id}`,
-        permanent: false,
-      },
-    };
-  }
+//   if (user?.name) {
+//     return {
+//       redirect: {
+//         destination: `/userboard/${user.id}`,
+//         permanent: false,
+//       },
+//     };
+//   }
 
-  return {
-    props: { session },
-  };
-};
+//   return {
+//     props: { session },
+//   };
+// };
 
 const GoalPage: NextPage = () => {
   const { data: session } = useSession();
@@ -93,7 +95,10 @@ const GoalPage: NextPage = () => {
 
   return (
     <div className={styles.root}>
-      <div className={styles["logo-container-sign-up"]}>
+      <Image src={Bubble} alt="bubble" className={styles.bubbleOne} />
+      <Image src={Bubble} alt="bubble" className={styles.bubbleTwo} />
+      <Image src={Bubble} alt="bubble" className={styles.bubbleThree} />
+      <div className={styles["logo-container-save-goal"]}>
         <Logo />
       </div>
       <div>
@@ -152,14 +157,14 @@ const GoalPage: NextPage = () => {
                 och 2000 ml under varma och aktiva dagar.
               </p>
             </div>
-            <button type="submit" className={styles["sign-in-button"]}>
+            <button type="submit" className={styles["save-goal-button"]}>
               Spara val
             </button>
             <button
               onClick={() =>
                 signOut({ callbackUrl: `${window.location.origin}` })
               }
-              className={styles["logout-button"]}
+              className={styles["logout-button-save-goal"]}
             >
               Logga ut
             </button>
