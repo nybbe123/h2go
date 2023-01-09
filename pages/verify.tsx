@@ -11,7 +11,7 @@ const Verify: NextPage = () => {
       <Image src={Bubble} alt="bubble" className={styles.bubbleOne} />
       <Image src={Bubble} alt="bubble" className={styles.bubbleTwo} />
       <Image src={Bubble} alt="bubble" className={styles.bubbleThree} />
-      <div className={styles["logo-container-sign-up"]}>
+      <div className={styles["logo-container-verify"]}>
         <Logo />
       </div>
       <div className={styles["confirm-container"]}>

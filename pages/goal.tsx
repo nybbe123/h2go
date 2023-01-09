@@ -98,7 +98,7 @@ const GoalPage: NextPage = () => {
       <Image src={Bubble} alt="bubble" className={styles.bubbleOne} />
       <Image src={Bubble} alt="bubble" className={styles.bubbleTwo} />
       <Image src={Bubble} alt="bubble" className={styles.bubbleThree} />
-      <div className={styles["logo-container-sign-up"]}>
+      <div className={styles["logo-container-save-goal"]}>
         <Logo />
       </div>
       <div>
@@ -157,14 +157,14 @@ const GoalPage: NextPage = () => {
                 och 2000 ml under varma och aktiva dagar.
               </p>
             </div>
-            <button type="submit" className={styles["sign-in-button"]}>
+            <button type="submit" className={styles["save-goal-button"]}>
               Spara val
             </button>
             <button
               onClick={() =>
                 signOut({ callbackUrl: `${window.location.origin}` })
               }
-              className={styles["logout-button"]}
+              className={styles["logout-button-save-goal"]}
             >
               Logga ut
             </button>
