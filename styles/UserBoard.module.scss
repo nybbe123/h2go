@@ -260,7 +260,7 @@
 
   .add-intake-container {
     width: 100%;
-    margin-top: 6rem;
+    margin-top: 4rem;
 
     @media (max-width: 1023px) {
       position: absolute;
@@ -270,6 +270,7 @@
       padding-left: 2rem;
       -ms-overflow-style: none;  /* IE and Edge */
       scrollbar-width: none;  /* Firefox */
+      margin-top: 6rem;
 
       &::-webkit-scrollbar {
         display: none;
@@ -324,7 +325,7 @@
     width: 100%;
     margin-left: .5rem;
     position: relative;
-    top: 7rem;
+    top: 5.5rem;
 
     @media(max-width: 1023px) {
       position: initial;
@@ -335,7 +336,7 @@
     width: 100%;
     margin-left: .5rem;
     position: relative;
-    top: 1rem;
+    top: 1.5rem;
 
     @media(max-width: 1023px) {
       position: initial;
