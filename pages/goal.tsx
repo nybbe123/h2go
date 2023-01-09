@@ -3,7 +3,7 @@ import { getSession, signOut, useSession } from "next-auth/react";
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/router";
 import prisma from "../prisma/prismaDb";
-import styles from "../styles/SignUpPage.module.scss";
+import styles from "../styles/GoalPage.module.scss";
 import Logo from "../public/assets/images/logo.svg";
 
 export interface UserData {
@@ -13,39 +13,39 @@ export interface UserData {
   intake?: string | undefined;
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const session = await getSession(context);
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
+//   if (!session) {
+//     return {
+//       redirect: {
+//         destination: "/",
+//         permanent: false,
+//       },
+//     };
+//   }
 
-  let user = await prisma.user.findUnique({
-    where: {
-      email: session?.user.email,
-    },
-  });
+//   let user = await prisma.user.findUnique({
+//     where: {
+//       email: session?.user.email,
+//     },
+//   });
 
-  user = JSON.parse(JSON.stringify(user));
+//   user = JSON.parse(JSON.stringify(user));
 
-  if (user?.name) {
-    return {
-      redirect: {
-        destination: `/userboard/${user.id}`,
-        permanent: false,
-      },
-    };
-  }
+//   if (user?.name) {
+//     return {
+//       redirect: {
+//         destination: `/userboard/${user.id}`,
+//         permanent: false,
+//       },
+//     };
+//   }
 
-  return {
-    props: { session },
-  };
-};
+//   return {
+//     props: { session },
+//   };
+// };
 
 const GoalPage: NextPage = () => {
   const { data: session } = useSession();
