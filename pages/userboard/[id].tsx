@@ -106,6 +106,15 @@ return {
 };
 };
 
+const quotes: string[] = [
+  'Dricksvatten kan förhindra uttorkning, ett tillstånd som kan orsaka oklara tankar, leda till humörförändringar, få din kropp att överhettas och leda till förstoppning och njursten.',
+  'Vatten har inga kalorier, så det kan hjälpa till att hantera kroppsvikten och minska kaloriintaget när det ersätts med drycker med kalorier, som sött te eller vanlig läsk.',
+  'Bär en vattenflaska med dig och fyll på den under hela dagen. Servera vatten under måltiderna. Välj vatten när du äter ute, du sparar pengar och minskar kalorier.',
+  'Vatten hjälper till att maximera fysisk prestation. Om du inte håller dig hydrerad kan din fysiska prestation lida. Detta är särskilt viktigt under intensiv träning eller hög värme.',
+  'Vatten påverkar avsevärt dina energinivåer och hjärnans funktion. Din hjärna påverkas starkt av din hydreringsstatus. Att dricka tillräckligt med vatten är därför viktigt.',
+  'Vatten kan hjälpa till att förebygga och behandla huvudvärk. Uttorkning kan utlösa huvudvärk och migrän hos vissa individer. Huvudvärk är ett av de vanligaste symtomen på uttorkning.',
+]
+
 const UserBoard: NextPage<
 InferGetStaticPropsType<typeof getStaticProps>
 > = ({ user }) => {
@@ -114,6 +123,8 @@ InferGetStaticPropsType<typeof getStaticProps>
   const [intake, setIntake] = useState<number>(parseInt(user?.intake!))
   const [percentage, setPercentage] = useState<number>(() => Math.floor((intake/+user?.goal!) * 100))
   const [glasLeft, setGlasLeft] = useState<number>(() => Math.ceil((+user?.goal!-intake)/125))
+  const [personalMessage, setPersonalMessage] = useState<string>('')
+  const [curiosa, setCuriosa] = useState<string>('')
 
   function addIntake(value: number) {
     setIntake((prevVal) => {
@@ -162,6 +173,31 @@ InferGetStaticPropsType<typeof getStaticProps>
     })
   }, [intake])
 
+  useEffect(() => {
+    if(percentage === 0) {
+      return setPersonalMessage(`Glöm inte att dricka vatten idag ${user?.name}`)
+    } else if(percentage > 0 && percentage < 29) {
+      return setPersonalMessage(`Heja dig ${user?.name}, Du har kommit en bra bit nu!`)
+    } else if(percentage > 29 && percentage < 45) {
+      return setPersonalMessage(`Snart halvvägs ${user?.name}, det går bra nu!`)
+    } else if(percentage > 45 && percentage < 60) {
+      return setPersonalMessage(`Halvvägs där ${user?.name}!`)
+    } else if(percentage > 60 && percentage < 75) {
+      return setPersonalMessage(`Mindre än hälften kvar nu ${user?.name}!`)
+    } else if(percentage > 75 && percentage < 100) {
+      return setPersonalMessage(`Snart framme vid mållinjen ${user?.name}!`)
+    } else if(percentage >= 100 && percentage < 115) {
+      return setPersonalMessage(`Bra jobbat idag ${user?.name}, du är grym!`)
+    } else if(percentage > 115) {
+      return setPersonalMessage(`Tänk på att för mycket vatten kan vara farligt!`)
+    }
+  }, [percentage, user?.name])
+
+  useEffect(() => {
+    const randomNum = Math.floor(Math.random()*quotes.length)
+    setCuriosa(quotes[randomNum])
+  }, [])
+
   return (
       <>
       <div className={styles.root}>
@@ -173,7 +209,7 @@ InferGetStaticPropsType<typeof getStaticProps>
         <div className={styles['data-field']}>
           <div className={styles.name}>
             <h1>Hej {user?.name}!</h1>
-            <p>Glöm inte dricka vatten idag</p>
+            <p>{personalMessage}</p>
           </div>
           <div className={styles['intake-data']}>
             <div className={styles.percentage}>
@@ -197,7 +233,7 @@ InferGetStaticPropsType<typeof getStaticProps>
           </div>
           <div className={styles.curiosa}>
             <p>Kuriosa</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis doloribus mollitia reprehenderit tenetur nemo temporibus exercitationem sapiente sequi, aliquam eligendi.</p>
+            <p>{curiosa}</p>
           </div>
         </div>
           <div className={styles.menu}>
