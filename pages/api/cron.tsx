@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import prisma from '../../prisma/prismaDb';
 
 export default async function handler(
   req: NextApiRequest,
@@ -8,10 +9,14 @@ export default async function handler(
     try {
       const { authorization } = req.headers;
 
-      console.log(authorization)
-
       if (authorization === `Bearer ${process.env.API_SECRET_KEY}`) {
-        res.status(200).json({ success: true });
+        const updateUsers = await prisma.user.updateMany({
+          data: {
+            intake: '0',
+          },
+        })
+        return res.status(200).json({ updateUsers });
+        
       } else {
         res.status(401).json({ success: false });
       }
