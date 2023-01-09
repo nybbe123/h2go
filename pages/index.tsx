@@ -9,6 +9,7 @@ import Logo from "../public/assets/images/logo.svg";
 import LogoText from "../public/assets/images/logo-text.svg";
 import type { LottiePlayer } from "lottie-web";
 import { useEffect, useRef, useState } from "react";
+import { prisma } from "@prisma/client";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
@@ -57,6 +58,7 @@ const Home: NextPage = () => {
       return () => animation.destroy();
     }
   }, [lottie]);
+  
 
   return (
     <>

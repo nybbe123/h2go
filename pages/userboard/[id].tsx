@@ -89,14 +89,14 @@ export const getStaticProps = async ({params}: GetStaticPropsContext<{id: string
         id
       },
   });
-
+  
   if (!user) {
     return {
-        notFound: true,
+      notFound: true,
     };
-}
-
-user = await JSON.parse(JSON.stringify(user))
+  }
+  
+  user = await JSON.parse(JSON.stringify(user))
 
 return {
     props: {
@@ -211,7 +211,7 @@ InferGetStaticPropsType<typeof getStaticProps>
               return <button type="button" key={index} onClick={() => addIntake(intakeData)}>{intakeData}ml</button>
             })}
             </div>
-            {/* <button onClick={() => signOut({callbackUrl: `${window.location.origin}`})}>Sign out</button> */}
+            <button onClick={() => signOut({callbackUrl: `${window.location.origin}`})}>Sign out</button>
           </div>
           <p className={styles['history-title']}>senaste dagarna</p>
           <div className={styles['history-container']}>
