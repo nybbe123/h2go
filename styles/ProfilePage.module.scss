@@ -1,0 +1,273 @@
+.root {
+  position: relative;
+  height: var(--app-height);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10rem;
+  padding: 2rem;
+  overflow: hidden;
+
+
+  @media(max-width: 1550px) {
+    gap: 4rem;
+  }
+
+  @media(max-width: 640px) {
+    justify-content: flex-start;
+    padding: 1.2rem;
+    height: min-content;
+    padding: 1.5rem 1.5rem 3rem 1.5rem;
+  }
+}
+
+.logo-container {
+  z-index: 1;
+  position: absolute;
+  top: 1.5rem;
+  left: 3rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem; 
+  cursor: pointer;
+
+  @media(max-width: 640px) {
+    display: none;
+  }
+}
+
+.title {
+  h2 {
+    font-size: 2.5rem;
+    margin: 0;
+  }
+
+  p {
+    margin-top: .5rem;
+  }
+}
+
+
+.inputfield {
+  width: 100%;
+  padding: 1rem 0rem;
+  border: none;
+  border-radius: 6px;
+  margin-top: 0.25rem;
+
+  label {
+    margin-left: .2rem;
+    font-size: .8rem;
+  }
+
+  input {
+    width: 100%;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-top: .2rem;
+    font-size: 1.1rem;
+    border: none;
+
+    &:focus {
+      outline: 2px solid var(--primary-blue);
+    }
+
+    &.invalid {
+      outline: 2px solid var(--error-red);
+    }
+  }
+}
+
+.goal-container {
+  margin-top: 2rem;
+  padding: 2rem;
+  border: solid 1px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border: solid 1px var(--border-grey);
+
+  .goal-number {
+
+    h2 {
+      font-size: 5rem;
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+      margin-left: .3rem;
+    }
+  }
+
+  .add-remove-buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    
+    .add-remove-button {
+      border: none;
+      height: 3.5rem;
+      width: 3.5rem;
+      background-color: var(--primary-blue);
+      color: var(--white);
+      border-radius: 6px;
+      font-size: xx-large;
+    
+      &:hover {
+        cursor: pointer;
+        background-color: var(--dark-blue);
+        }
+    }
+  }
+}
+
+.info-text {
+  display: flex;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  padding: 1rem 2rem;
+  border: solid 1px var(--border-grey);
+  border-radius: 6px;
+  max-width: 26rem;
+
+  p {
+    font-size: .9rem;
+    line-height: 20px;
+    color: var(--light-grey);
+  }
+}
+
+.save-button {
+  padding: 1rem 2rem;
+  width: 100%;
+  background-color: var(--inactive-blue);
+  color: var(--white);
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  font-weight: 500;
+  display: flex;
+  border-radius: 6px;
+  transition: 250ms;
+  border: none;
+  justify-content: center;
+
+  &.active {
+    background-color: var(--primary-blue);
+
+    &:hover {
+      cursor: pointer;
+      background-color: var(--dark-blue);
+    }
+  }
+}
+
+.logout-button {
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  width: 100%;
+  background-color: transparent;
+  border: 1px solid var(--border-grey);
+  color: var(--white);
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  font-weight: 500;
+  display: flex;
+  border-radius: 6px;
+  transition: 250ms;
+  justify-content: center;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--dark-blue);
+    border-color: var(--dark-blue);
+  }
+}
+
+.error {
+  display: none;
+  &.invalid {
+    display: block;
+    color: var(--error-red);
+    width: 100%;
+    font-size: .8rem;
+    margin-bottom: 2rem;
+  }
+}
+
+.menu {
+  position: absolute;
+  z-index: 3;
+  border: 1px solid var(--white);
+  padding: .6rem;
+  border-radius: 6px;
+  position: absolute;
+  right: 2rem;
+  transition: 250ms;
+  top: 2rem;
+  right: 2.5rem;
+
+  &:hover {
+    background-color: var(--dark-blue);
+    border-color: var(--dark-blue);
+    cursor: pointer;
+  }
+
+  @media(max-width: 460px) {
+    right: 1.5rem;
+  }
+}
+
+.bubbleOne {
+  position: absolute;
+  top: 60%;
+  right: 80%;
+
+  @media (max-width: 1920px) {
+    right: 70%;
+  }
+
+  @media (max-width: 640px) {
+    width: 165px;
+    height: auto;
+    top: 67%;
+    right: 79%;
+    opacity: .4;
+  }
+}
+
+.bubbleTwo {
+  position: absolute;
+  bottom: 80%;
+  left: 70%;
+  height: auto;
+  width: 400px;
+
+  @media (max-width: 640px) {
+    width: 400px;
+    left: 50%;
+    bottom: 70%;
+    opacity: .4;
+  }
+}
+
+.bubbleThree {
+  position: absolute;
+  top: 80%;
+  right: 10%;
+  height: auto;
+  width: 150px;
+  
+  @media (max-width: 640px) {
+    width: 65px;
+    top: 75%;
+    left: 75%;
+    opacity: .4;
+  }
+}
