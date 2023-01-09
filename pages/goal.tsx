@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 import prisma from "../prisma/prismaDb";
 import styles from "../styles/GoalPage.module.scss";
 import Logo from "../public/assets/images/logo.svg";
+import Image from "next/image";
+import Bubble from "../public/assets/images/bubble.webp";
 
 export interface UserData {
   name?: string | undefined;
@@ -93,6 +95,9 @@ const GoalPage: NextPage = () => {
 
   return (
     <div className={styles.root}>
+      <Image src={Bubble} alt="bubble" className={styles.bubbleOne} />
+      <Image src={Bubble} alt="bubble" className={styles.bubbleTwo} />
+      <Image src={Bubble} alt="bubble" className={styles.bubbleThree} />
       <div className={styles["logo-container-sign-up"]}>
         <Logo />
       </div>

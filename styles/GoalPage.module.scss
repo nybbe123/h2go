@@ -155,3 +155,51 @@
   border: solid 1px;
   border-radius: 6px;
 }
+
+.bubbleOne {
+  position: absolute;
+  top: 60%;
+  right: 80%;
+
+  @media (max-width: 1920px) {
+    right: 70%;
+  }
+
+  @media (max-width: 640px) {
+    width: 165px;
+    height: auto;
+    top: 67%;
+    right: 79%;
+    opacity: .4;
+  }
+}
+
+.bubbleTwo {
+  position: absolute;
+  bottom: 80%;
+  left: 70%;
+  height: auto;
+  width: 400px;
+
+  @media (max-width: 640px) {
+    width: 400px;
+    left: 50%;
+    bottom: 70%;
+    opacity: .4;
+  }
+}
+
+.bubbleThree {
+  position: absolute;
+  top: 80%;
+  right: 10%;
+  height: auto;
+  width: 150px;
+  
+  @media (max-width: 640px) {
+    width: 65px;
+    top: 75%;
+    left: 75%;
+    opacity: .4;
+  }
+}
