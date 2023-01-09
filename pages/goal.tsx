@@ -115,7 +115,7 @@ const GoalPage: NextPage = () => {
               required
               minLength={2}
               maxLength={12}
-              pattern="[a-ö]{1,15}"
+              pattern="[a-ö]{1,15}{A-Ö}"
               title="Ditt namn måste innehålla mellan 2 och 12 bokstäver (a till ö)."
               placeholder="Skriv ditt namn här"
               onChange={handleChange}
