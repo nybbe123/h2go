@@ -8,6 +8,8 @@ export default async function handler(
     try {
       const { authorization } = req.headers;
 
+      console.log(authorization)
+
       if (authorization === `Bearer ${process.env.API_SECRET_KEY}`) {
         res.status(200).json({ success: true });
       } else {

@@ -23,5 +23,10 @@ content-type: application/json
     "id": "clcjeog670000kw0875rr9lx3",
     "goal": "1500",
     "intake": "1500"
-
 }
+
+###
+
+curl --request POST \
+     --url 'http://localhost:3000/api/cron' \
+     --header 'Authorization: Bearer'
