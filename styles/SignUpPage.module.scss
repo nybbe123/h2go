@@ -101,6 +101,21 @@
     }
 }
 
+.sign-in-button {
+  margin-top: 2rem;
+  padding: 1rem 2rem;
+  width: 100%;
+  background-color: var(--primary-blue);
+  justify-content: center;
+  color: var(--white);
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  font-weight: 500;
+  display: flex;
+  border-radius: 6px;
+  transition: 250ms;
+}
+
 .logout-button {
   margin-top: 2rem;
   padding: 1rem 2rem;

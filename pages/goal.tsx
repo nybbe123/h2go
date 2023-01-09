@@ -13,39 +13,39 @@ export interface UserData {
   intake?: string | undefined;
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const session = await getSession(context);
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
+//   if (!session) {
+//     return {
+//       redirect: {
+//         destination: "/",
+//         permanent: false,
+//       },
+//     };
+//   }
 
-  let user = await prisma.user.findUnique({
-    where: {
-      email: session?.user.email,
-    },
-  });
+//   let user = await prisma.user.findUnique({
+//     where: {
+//       email: session?.user.email,
+//     },
+//   });
 
-  user = JSON.parse(JSON.stringify(user));
+//   user = JSON.parse(JSON.stringify(user));
 
-  if (user?.name) {
-    return {
-      redirect: {
-        destination: "/userboard",
-        permanent: false,
-      },
-    };
-  }
+//   if (user?.name) {
+//     return {
+//       redirect: {
+//         destination: "/userboard",
+//         permanent: false,
+//       },
+//     };
+//   }
 
-  return {
-    props: { session },
-  };
-};
+//   return {
+//     props: { session },
+//   };
+// };
 
 const GoalPage: NextPage = () => {
   const { data: session } = useSession();
@@ -84,11 +84,11 @@ const GoalPage: NextPage = () => {
     });
 
     if (response.ok) {
-        const res = await response.json();
-        router.push(`/userboard/${session?.user.id}`);
-      } else {
-        console.log('error')
-      }
+      const res = await response.json();
+      router.push(`/userboard/${session?.user.id}`);
+    } else {
+      console.log("error");
+    }
   }
 
   return (
