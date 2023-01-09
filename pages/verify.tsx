@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import styles from "../styles/SignUpPage.module.scss";
+import styles from "../styles/ConfirmationPage.module.scss";
 import Logo from "../public/assets/images/logo.svg";
 import Confirm from "../public/assets/images/confirm.svg";
 
