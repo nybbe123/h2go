@@ -9,7 +9,7 @@ import styles from "../styles/SignUpPage.module.scss";
 import Logo from "../public/assets/images/logo.svg";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Bubble from '../public/assets/images/bubble.webp'
+import Bubble from "../public/assets/images/bubble.webp";
 import Image from "next/image";
 
 export async function getServerSideProps(context: NextPageContext) {
@@ -37,59 +37,64 @@ export async function getServerSideProps(context: NextPageContext) {
 const SignUp: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ providers, csrfToken }) => {
-  const router = useRouter()
-  const [email, setEmail] = useState<string>('')
-  const [formIsEmpty, setFormIsEmpty] = useState(false)
-  const [formIsValid, setFormIsValid] = useState(true)
+  const router = useRouter();
+  const [email, setEmail] = useState<string>("");
+  const [formIsEmpty, setFormIsEmpty] = useState(false);
+  const [formIsValid, setFormIsValid] = useState(true);
 
   function emailHandler(e: React.ChangeEvent<HTMLInputElement>) {
-    const val = e.target.value
-    setEmail(val)
+    const val = e.target.value;
+    setEmail(val);
   }
 
   useEffect(() => {
-    if(email === '') {
-      setFormIsEmpty(false)
+    if (email === "") {
+      setFormIsEmpty(false);
     } else {
-      setFormIsEmpty(true)
+      setFormIsEmpty(true);
     }
-  }, [email])
+  }, [email]);
 
   useEffect(() => {
-    const val = document.getElementById('email')
-    const mail = val as HTMLInputElement
+    const val = document.getElementById("email");
+    const mail = val as HTMLInputElement;
 
-    
     const handleInput = () => {
       if (mail.validity.patternMismatch) {
-        mail.setCustomValidity(`Ogiltigt format. Vänligen kontrollera att du fyllt i din mailadress på ett korrekt sätt. exempel: email@exempel.se`);
-        setFormIsValid(false)
+        mail.setCustomValidity(
+          `Ogiltigt format. Vänligen kontrollera att du fyllt i din mailadress på ett korrekt sätt. exempel: email@exempel.se`
+        );
+        setFormIsValid(false);
       } else {
         mail.setCustomValidity("");
-        setFormIsValid(true)
+        setFormIsValid(true);
       }
-    }
+    };
 
-    window.addEventListener('input', handleInput);
+    window.addEventListener("input", handleInput);
 
     return () => {
-        window.removeEventListener('input', handleInput)
-    }
-  })
+      window.removeEventListener("input", handleInput);
+    };
+  });
 
   return (
     <div className={styles.root}>
-      <Image src={Bubble} alt="bubble" className={styles.bubbleOne}/>
-      <Image src={Bubble} alt="bubble" className={styles.bubbleTwo}/>
-      <Image src={Bubble} alt="bubble" className={styles.bubbleThree}/>
-      <div className={styles["logo-container-sign-up"]} onClick={() => router.push('/')}>
+      <Image src={Bubble} alt="bubble" className={styles.bubbleOne} />
+      <Image src={Bubble} alt="bubble" className={styles.bubbleTwo} />
+      <Image src={Bubble} alt="bubble" className={styles.bubbleThree} />
+      <div
+        className={styles["logo-container-sign-up"]}
+        onClick={() => router.push("/")}
+      >
         <Logo />
       </div>
-      <div className={styles['form-container']}>
+      <div className={styles["form-container"]}>
         <div>
           <h1>Hallå där!</h1>
           <p>
-            H2:GO är lösenordsfritt. Skriv bara in din email adress nedan för att logga in eller registrera ett nytt konto.
+            H2:GO är lösenordsfritt. Skriv bara in din email adress nedan för
+            att logga in eller registrera ett nytt konto.
           </p>
         </div>
         <div>
@@ -100,25 +105,32 @@ const SignUp: NextPage<
           >
             <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
             <label htmlFor="email">
-              <span>Email</span>
+              <span>E-mail</span>
               <input
                 id="email"
                 name="email"
                 type="email"
+                placeholder="Skriv din E-mail här"
                 required
                 pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                 onChange={emailHandler}
-                className={!formIsValid ? styles.invalid : ''}
+                className={!formIsValid ? styles.invalid : ""}
               />
             </label>
-            <button type="submit" className={`${styles["login-button"]} ${formIsEmpty ? styles["active"] : ''}`}>
+            <button
+              type="submit"
+              className={`${styles["login-button"]} ${
+                formIsEmpty ? styles["active"] : ""
+              }`}
+            >
               Logga in / Registrera
             </button>
           </form>
           <div>
-          <p className={styles.policy}>
-              Genom att fortsätta godkänner du våra <b className={styles['text-overlay']}>användarvillkor</b>{" "}
-              och <b className={styles['text-overlay']}>sekretesspolicy</b>
+            <p className={styles.policy}>
+              Genom att fortsätta godkänner du våra{" "}
+              <b className={styles["text-overlay"]}>användarvillkor</b> och{" "}
+              <b className={styles["text-overlay"]}>sekretesspolicy</b>
             </p>
           </div>
         </div>
