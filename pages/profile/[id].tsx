@@ -6,8 +6,8 @@ import Logo from "../../public/assets/images/logo.svg";
 import { UserData } from "../goal";
 import { ChangeEvent, useEffect, useState } from "react";
 import Image from "next/image";
-import { signOut } from "next-auth/react";
 import MenuIcon from '../../public/assets/images/menu.svg'
+import Confirm from "../../public/assets/images/confirm-smal.svg";
 
 // get static paths from api
 export const getStaticPaths = async () => {
@@ -67,6 +67,7 @@ InferGetStaticPropsType<typeof getStaticProps>
   const [name, setName] = useState<string>(user?.name!);
   const [formIsEmpty, setFormIsEmpty] = useState<boolean>(true);
   const [formIsValid, setFormIsValid] = useState<boolean>(true);
+  const [isComplete, setIsComplete] = useState<boolean>(false);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setName(e.target.value);
@@ -89,7 +90,7 @@ InferGetStaticPropsType<typeof getStaticProps>
     } else {
       setFormIsEmpty(false)
     }
-  }, [name, goalValue])
+  }, [name, goalValue, user?.goal, user?.name])
 
   async function submitFormHandler(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -117,7 +118,10 @@ InferGetStaticPropsType<typeof getStaticProps>
     if (response.ok) {
       const res = await response.json();
       setName(res.name)
-      setGoalValue(res.goal)
+      setGoalValue(parseInt(res.goal))
+      setIsComplete(true)
+      setFormIsEmpty(true)
+
     } else {
       console.log("error");
     }
@@ -130,9 +134,8 @@ InferGetStaticPropsType<typeof getStaticProps>
       </div>
       <div className={styles["logo-container"]}>
         <Logo />
-        <h1>Profilsida</h1>
       </div>
-      <div>
+      <div className={styles.wrapper}>
         <div className={styles['title']}>
           <h2>{user?.name}</h2>
           <p>{user?.email}</p>
@@ -194,20 +197,23 @@ InferGetStaticPropsType<typeof getStaticProps>
             <div className={`${styles.error} ${formIsValid ? '' : styles.invalid}`}>
               <p>Inga ändringar har gjorts</p>
             </div>
-            <button
-              onClick={() =>
-                signOut({ callbackUrl: `${window.location.origin}` })
-              }
-              className={styles["logout-button"]}
-            >
-              Logga ut
-            </button>
           </div>
         </form>
       </div>
       <Image src={Bubble} alt="bubble" className={styles.bubbleOne} />
       <Image src={Bubble} alt="bubble" className={styles.bubbleTwo} />
       <Image src={Bubble} alt="bubble" className={styles.bubbleThree} />
+      <div className={`${styles.modal} ${isComplete ? styles.active : ''}`}/>
+      <div className={`${styles.complete} ${isComplete ? styles.active : ''}`}>
+        <div className={styles.container}>
+          <Confirm />
+          <div>
+            <p>Klart!</p>
+            <p>Dina ändringar har sparats.</p>
+          </div>
+        </div>
+        <button onClick={() => setIsComplete(false)}>Fortsätt</button>
+      </div>
     </div>
   )
 }
