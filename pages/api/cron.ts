@@ -16,7 +16,7 @@ export default async function handler(
           },
         })
         return res.status(200).json({ updateUsers });
-        
+
       } else {
         res.status(401).json({ success: false });
       }
