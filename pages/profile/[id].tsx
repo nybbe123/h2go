@@ -8,6 +8,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import Image from "next/image";
 import MenuIcon from '../../public/assets/images/menu.svg'
 import Confirm from "../../public/assets/images/confirm-smal.svg";
+import { useRouter } from "next/router";
 
 // get static paths from api
 export const getStaticPaths = async () => {
@@ -63,6 +64,7 @@ return {
 const ProfilePage: NextPage<
 InferGetStaticPropsType<typeof getStaticProps>
 > = ({ user }) => {
+  const router = useRouter()
   const [goalValue, setGoalValue] = useState<number>(parseInt(user?.goal!));
   const [name, setName] = useState<string>(user?.name!);
   const [formIsEmpty, setFormIsEmpty] = useState<boolean>(true);
@@ -212,7 +214,10 @@ InferGetStaticPropsType<typeof getStaticProps>
             <p>Dina ändringar har sparats.</p>
           </div>
         </div>
-        <button onClick={() => setIsComplete(false)}>Fortsätt</button>
+        <button onClick={() => {
+          setIsComplete(false)
+          router.replace(router.asPath)
+        }}>Fortsätt</button>
       </div>
     </div>
   )
