@@ -160,14 +160,6 @@ const GoalPage: NextPage = () => {
             <button type="submit" className={styles["save-goal-button"]}>
               Spara val
             </button>
-            <button
-              onClick={() =>
-                signOut({ callbackUrl: `${window.location.origin}` })
-              }
-              className={styles["logout-button-save-goal"]}
-            >
-              Logga ut
-            </button>
           </div>
         </form>
       </div>
