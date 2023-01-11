@@ -1,7 +1,7 @@
 name: daily-cron
 on:
   schedule:
-    - cron: '0 3 * * *'
+    - cron: '0 22 * * *'
 jobs:
   cron:
     runs-on: ubuntu-latest
@@ -9,5 +9,5 @@ jobs:
       - name: Update user intake
         run: |
           curl --request POST \
-          --url 'http://localhost:3000/api/cron' \
+          --url 'https://h2go.vercel.app/api/cron' \
           --header 'Authorization: Bearer ${{ secrets.API_SECRET_KEY }}'
