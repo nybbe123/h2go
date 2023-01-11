@@ -29,4 +29,19 @@ content-type: application/json
 
 curl --request POST \
      --url 'http://localhost:3000/api/cron' \
-     --header 'Authorization: Bearer'
+     --header 'Authorization: Bearer p4BzzpE3WXgjriSzgaDtbQMYx'
+
+
+###
+
+POST http://localhost:3000/api/history HTTP/1.1
+content-type: application/json
+
+{
+    "email": "nyberg112@gmail.com",
+    "goal": "1200",
+    "intake": "1500",
+    "today": "4",
+    "day": "2",
+    "month": "3"
+}

@@ -10,6 +10,7 @@ declare module "next-auth" {
       email: string
       goal: string
       intake: string
+      history: []
     } & DefaultSession["user"]
   }
 
@@ -18,5 +19,6 @@ declare module "next-auth" {
     goal: string
     name: string
     intake: string
+    history: []
   }
 }

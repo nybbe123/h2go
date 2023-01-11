@@ -24,6 +24,7 @@ import WaterGlas from "../../public/assets/images/water-glas.svg";
 import Menu from "../../components/menu";
 import CloseIcon from "../../public/assets/images/close-icon.svg";
 
+
 // get static paths from api
 export const getStaticPaths = async () => {
   const users = await prisma.user.findMany({
@@ -55,9 +56,9 @@ export const getStaticProps = async ({
   const { id } = params;
 
   let user = await prisma.user.findUnique({
-    where: {
-      id,
-    },
+      where: {
+        id
+      }
   });
 
   if (!user) {
@@ -65,14 +66,32 @@ export const getStaticProps = async ({
       notFound: true,
     };
   }
-
+  
   user = await JSON.parse(JSON.stringify(user));
 
-  return {
-    props: {
-      user,
+  let histories = await prisma.user.findUnique({
+    where: {
+      id: id
     },
-    revalidate: 1,
+    include: {
+      history: true
+    }
+  });
+
+  if (!histories) {
+    return {
+      notFound: true,
+    };
+  }
+  
+  histories = await JSON.parse(JSON.stringify(histories))
+
+  return {
+      props: {
+          user,
+          histories: histories
+      },
+      revalidate: 1,
   };
 };
 
@@ -85,20 +104,15 @@ const quotes: string[] = [
   "Vatten kan hjälpa till att förebygga och behandla huvudvärk. Uttorkning kan utlösa huvudvärk och migrän hos vissa individer. Huvudvärk är ett av de vanligaste symtomen på uttorkning.",
 ];
 
-const UserBoard: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
-  user,
-}) => {
-  const DUMMY_INTAKEDATA = [125, 175, 250, 500, 750, 1000];
-  const DUMMY_INTAKES = [1500, 1250, 1500, 1250, 1500, 1250, 1500];
-  const [intake, setIntake] = useState<number>(parseInt(user?.intake!));
-  const [percentage, setPercentage] = useState<number>(() =>
-    Math.floor((intake / +user?.goal!) * 100)
-  );
-  const [glasLeft, setGlasLeft] = useState<number>(() =>
-    Math.ceil((+user?.goal! - intake) / 125)
-  );
-  const [personalMessage, setPersonalMessage] = useState<string>("");
-  const [curiosa, setCuriosa] = useState<string>("");
+const UserBoard: NextPage<
+InferGetStaticPropsType<typeof getStaticProps>
+> = ({ user, histories }) => {
+  const DUMMY_INTAKEDATA = [125, 175, 250, 500, 750, 1000]
+  const [intake, setIntake] = useState<number>(parseInt(user?.intake!))
+  const [percentage, setPercentage] = useState<number>(() => Math.floor((intake/+user?.goal!) * 100))
+  const [glasLeft, setGlasLeft] = useState<number>(() => Math.ceil((+user?.goal!-intake)/125))
+  const [personalMessage, setPersonalMessage] = useState<string>('')
+  const [curiosa, setCuriosa] = useState<string>('')
   const [toogleOpen, setToogleOpen] = useState<boolean>(false);
 
   function addIntake(value: number) {
@@ -145,34 +159,26 @@ const UserBoard: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
       } else {
         return Math.ceil((+user?.goal! - intake) / 125);
       }
-    });
-  }, [intake, user?.goal]);
+    })
+  }, [intake, user?.goal])
 
   useEffect(() => {
-    if (percentage === 0) {
-      return setPersonalMessage(
-        `Glöm inte att dricka vatten idag ${user?.name}`
-      );
-    } else if (percentage > 0 && percentage < 29) {
-      return setPersonalMessage(
-        `Heja dig ${user?.name}, Du har kommit en bra bit nu!`
-      );
-    } else if (percentage > 29 && percentage < 45) {
-      return setPersonalMessage(
-        `Snart halvvägs ${user?.name}, det går bra nu!`
-      );
-    } else if (percentage > 45 && percentage < 60) {
-      return setPersonalMessage(`Halvvägs där ${user?.name}!`);
-    } else if (percentage > 60 && percentage < 75) {
-      return setPersonalMessage(`Mindre än hälften kvar nu ${user?.name}!`);
-    } else if (percentage > 75 && percentage < 100) {
-      return setPersonalMessage(`Snart framme vid mållinjen ${user?.name}!`);
-    } else if (percentage >= 100 && percentage < 115) {
-      return setPersonalMessage(`Bra jobbat idag ${user?.name}, du är grym!`);
-    } else if (percentage > 115) {
-      return setPersonalMessage(
-        `Tänk på att för mycket vatten kan vara farligt!`
-      );
+    if(percentage === 0) {
+      return setPersonalMessage(`Glöm inte att dricka vatten idag`)
+    } else if(percentage > 0 && percentage < 29) {
+      return setPersonalMessage(`Du är grym, fortsätt dricka vatten`)
+    } else if(percentage > 29 && percentage < 45) {
+      return setPersonalMessage(`Snart halvvägs, heja dig!`)
+    } else if(percentage > 45 && percentage < 60) {
+      return setPersonalMessage(`Halvvägs där, kämpa på!`)
+    } else if(percentage > 60 && percentage < 75) {
+      return setPersonalMessage(`Mindre än hälften kvar nu`)
+    } else if(percentage > 75 && percentage < 100) {
+      return setPersonalMessage(`Snart framme vid mållinjens!`)
+    } else if(percentage >= 100 && percentage < 115) {
+      return setPersonalMessage(`Bra jobbat idag, du är grym!`)
+    } else if(percentage > 115) {
+      return setPersonalMessage(`Drick inte för mycket kompis`)
     }
   }, [percentage, user?.name]);
 
@@ -240,10 +246,11 @@ const UserBoard: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
               })}
             </div>
           </div>
-          <p className={styles["history-title"]}>senaste dagarna</p>
-          <div className={styles["history-container"]}>
+          <p className={styles['history-title']}>senaste dagarna</p>
+          <div className={styles['history-container']}>
+            {histories?.history.length !== 0 ? 
             <ul>
-              {DUMMY_INTAKES.map((intake, index) => {
+              {histories?.history.map((day, index) => {
                 return (
                   <li key={index}>
                     <div className={styles.date}>
@@ -253,15 +260,24 @@ const UserBoard: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                     </div>
                     <div className={styles["history-intake"]}>
                       <p>100% completed</p>
-                      <p>{intake}/1500ml</p>
+                      <p>{day.intake}/{day.goal}ml</p>
                     </div>
-                    <div className={styles["icon-indicator"]}>
+                    <div className={styles['icon-indicator']}>
+                      { parseInt(day.intake!) < parseInt(day.goal!) ? 
+                      <CheckRed />
+                        :
                       <CheckBlue />
+                      }
                     </div>
                   </li>
                 );
               })}
             </ul>
+            :  
+            <>
+            <p className={styles['no-history']}>Din historik kommer att synas här</p>
+            </>
+            }
           </div>
         </div>
         <div className={toogleOpen ? styles.modal : ""} />

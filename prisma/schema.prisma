@@ -10,6 +10,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model History {
+  id        String @id @default(cuid()) @map("_id")
+  userId    String
+  goal      String?
+  intake    String?
+  today     String?
+  day       String?
+  month     String?
+
+  user      User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
 model Account {
   id                 String  @id @default(cuid()) @map("_id")
   userId             String
@@ -47,6 +59,7 @@ model User {
   intake        String?   @default("0")
   accounts      Account[]
   sessions      Session[]
+  history       History[]
 }
 
 model VerificationToken {
