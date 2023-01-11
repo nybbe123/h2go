@@ -24,46 +24,6 @@ import WaterGlas from "../../public/assets/images/water-glas.svg";
 import Menu from "../../components/menu";
 import CloseIcon from "../../public/assets/images/close-icon.svg";
 
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   const session = await getSession(context);
-
-//   if (!session) {
-//     return {
-//       redirect: {
-//         destination: "/",
-//         permanent: false,
-//       },
-//     }
-//   }
-
-//   let user = await getUser(session.user.email)
-
-//   user = await JSON.parse(JSON.stringify(user))
-
-//   // let user = await prisma.user.findUnique({
-//   //   where: {
-//   //     email: session.user.email,
-//   //   },
-//   // });
-
-//   // user = await JSON.parse(JSON.stringify(user))
-
-//   // if (!user?.name) {
-//   //   return {
-//   //     redirect: {
-//   //       destination: "/goal",
-//   //       permanent: false,
-//   //     },
-//   //   }
-//   // }
-
-//   return {
-//     props: {
-//       user
-//     }
-//   };
-// }
-
 // get static paths from api
 export const getStaticPaths = async () => {
   const users = await prisma.user.findMany({
@@ -176,7 +136,7 @@ const UserBoard: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
 
   useEffect(() => {
     setPercentage(() => Math.floor((intake / +user?.goal!) * 100));
-  }, [intake]);
+  }, [intake, user?.goal]);
 
   useEffect(() => {
     setGlasLeft(() => {
@@ -186,7 +146,7 @@ const UserBoard: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
         return Math.ceil((+user?.goal! - intake) / 125);
       }
     });
-  }, [intake]);
+  }, [intake, user?.goal]);
 
   useEffect(() => {
     if (percentage === 0) {

@@ -5,8 +5,13 @@ import HomeIcon from "../public/assets/images/home-icon.svg";
 import ProfileIcon from "../public/assets/images/profile-icon.svg";
 import SettingsIcon from "../public/assets/images/settings-icon.svg";
 import LogoutIcon from "../public/assets/images/logout-icon.svg";
+import { signOut } from "next-auth/react";
 
-const Menu: NextPage = (props) => {
+interface Props {
+  isOpen: boolean;
+}
+
+const Menu: NextPage<Props> = (props: Props) => {
   const isOpen = props.isOpen;
 
   return (
