@@ -58,6 +58,9 @@ export const getStaticProps = async ({
   let user = await prisma.user.findUnique({
       where: {
         id
+      },
+      include: {
+        history: true
       }
   });
 
@@ -69,27 +72,27 @@ export const getStaticProps = async ({
   
   user = await JSON.parse(JSON.stringify(user));
 
-  let histories = await prisma.user.findUnique({
-    where: {
-      id: id
-    },
-    include: {
-      history: true
-    }
-  });
+  // let histories = await prisma.user.findUnique({
+  //   where: {
+  //     id: id
+  //   },
+  //   include: {
+  //     history: true
+  //   }
+  // });
 
-  if (!histories) {
-    return {
-      notFound: true,
-    };
-  }
+  // if (!histories) {
+  //   return {
+  //     notFound: true,
+  //   };
+  // }
   
-  histories = await JSON.parse(JSON.stringify(histories))
+  // histories = await JSON.parse(JSON.stringify(histories))
 
   return {
       props: {
           user,
-          histories: histories
+          // histories: histories
       },
       revalidate: 1,
   };
@@ -106,7 +109,7 @@ const quotes: string[] = [
 
 const UserBoard: NextPage<
 InferGetStaticPropsType<typeof getStaticProps>
-> = ({ user, histories }) => {
+> = ({ user }) => {
   const DUMMY_INTAKEDATA = [125, 175, 250, 500, 750, 1000]
   const [intake, setIntake] = useState<number>(parseInt(user?.intake!))
   const [percentage, setPercentage] = useState<number>(() => Math.floor((intake/+user?.goal!) * 100))
@@ -248,9 +251,9 @@ InferGetStaticPropsType<typeof getStaticProps>
           </div>
           <p className={styles['history-title']}>senaste dagarna</p>
           <div className={styles['history-container']}>
-            {histories?.history.length !== 0 ? 
+            {user?.history.length !== 0 ? 
             <ul>
-              {histories?.history.map((day, index) => {
+              {user?.history.map((day, index) => {
                 return (
                   <li key={index}>
                     <div className={styles.date}>
