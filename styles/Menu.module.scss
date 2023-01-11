@@ -1,0 +1,94 @@
+.root {
+    height: 100vh;
+    background-color: var(--card-bg);
+    position: absolute;
+    right: -30rem;
+    width: 30rem;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    z-index: 5;
+    transition: 500ms;
+  
+
+    &.active {
+        right: 0;
+    }
+}
+
+.ul-container {
+    position: absolute;
+    top: 25%;
+    left: 40%;
+    translate: -50% -50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: auto;
+    cursor: pointer;
+    
+    a {
+        color: var(--white);
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        font-size: 1.4rem;
+        transition: 250ms;
+
+        svg {
+            path {
+                transition: 250ms;
+            }
+        }
+
+        span {
+            margin-top: .3rem;
+        }
+
+        &:hover {
+            color: var(--primary-blue);
+
+            svg {
+                path {
+                    fill: var(--primary-blue);
+                }
+            }
+        }
+    }
+    
+    li {
+        color: var(--white);
+    }
+}
+
+.logout-button {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    bottom: 6rem;
+    left: 40%;
+    translate: -50% -50%;
+    background-color: transparent;
+    border: none;
+    color: var(--white);
+    gap: 1rem;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: 250ms;
+
+    svg {
+        path {
+            transition: 250ms;
+        }
+    }
+
+    &:hover {
+        color: var(--primary-blue);
+
+        svg {
+            path {
+                fill: var(--primary-blue);
+            }
+        }
+    }
+}
