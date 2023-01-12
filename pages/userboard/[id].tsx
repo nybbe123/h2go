@@ -76,7 +76,7 @@ export const getStaticProps = async ({
       props: {
           user,
       },
-      revalidate: 10,
+      // revalidate: 10,
   };
 };
 
@@ -123,7 +123,6 @@ InferGetStaticPropsType<typeof getStaticProps>
         "Content-type": "application/json",
       },
       body: JSON.stringify(data),
-      next: { revalidate: 10 }
     });
 
     if (response.ok) {
