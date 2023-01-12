@@ -59,9 +59,16 @@ export const getStaticProps = async ({
       where: {
         id
       },
-      include: {
-        history: true
-      }
+      select: {
+        id: true,
+        intake: true,
+        goal: true,
+        name: true,
+        history: true,
+      },
+      // include: {
+      //   history: true
+      // }
   });
 
   if (!user) {
