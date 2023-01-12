@@ -257,9 +257,9 @@ InferGetStaticPropsType<typeof getStaticProps>
                 return (
                   <li key={index}>
                     <div className={styles.date}>
-                      <p>mon</p>
-                      <p className={styles.day}>12</p>
-                      <p>dec</p>
+                      <p>{day.today}</p>
+                      <p className={styles.day}>{day.day}</p>
+                      <p>{day.month}</p>
                     </div>
                     <div className={styles["history-intake"]}>
                       <p>100% completed</p>

@@ -37,12 +37,11 @@ export default async function handler(
           })
         })
 
-        const updateUsers = await prisma.user.updateMany({
+        await prisma.user.updateMany({
           data: {
             intake: '0',
           },
         })
-        return res.status(200).json({ updateUsers });
 
       } else {
         res.status(401).json({ success: false });
