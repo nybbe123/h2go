@@ -1,0 +1,152 @@
+.root {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 4rem;
+
+  @media(max-width: 970px) {
+    flex-direction: column;
+  }
+
+  @media(max-width: 640px) {
+    padding: 2rem 1.5rem;
+    justify-content: space-between;
+  }
+}
+
+.logo-container {
+  z-index: 1;
+  position: absolute;
+  top: 2rem;
+  left: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+
+  @media(max-width: 970px) {
+    display: none;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  h2 {
+    font-size: 4rem;
+    margin: 0;
+    line-height: 60px;
+  }
+
+  h3 {
+    font-size: 1.8rem;
+    font-weight: 100;
+    max-width: 26rem;
+    margin: 0;
+    line-height: 35px;
+  }
+
+  p {
+    max-width: 26rem;
+    margin: 0;
+    margin-bottom: 1.5rem;
+    line-height: 22px;
+    color: #cfcfcf;
+  }
+
+  button {
+    width: 100%;
+    background-color: var(--primary-blue);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    padding: 1rem;
+    cursor: pointer;
+    transition: 250ms;
+
+    &:hover {
+      background-color: var(--dark-blue);
+    }
+  }
+
+  @media(max-width: 970px) {
+    order: 1;
+  }
+
+  @media(max-width: 460px) {
+    h2 {
+      font-size: 3rem;
+      line-height: 40px;
+    }
+  
+    h3 {
+      font-size: 1.4rem;
+      line-height: 28px;
+    }
+  }
+}
+
+.abstract {
+  position: relative;
+
+  h1 {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    font-size: 20rem;
+    margin: 0;
+    color: var(--bg);
+  }
+
+  .animation {
+    width: 650px;
+    height: auto;
+  }
+
+  @media (max-width: 1300px) {
+    h1 {
+      font-size: 15rem;
+    }
+
+    .animation {
+      width: 550px;
+    }
+  }
+
+  @media (max-width: 1100px) {
+    h1 {
+      font-size: 12rem;
+    }
+
+    .animation {
+      width: 450px;
+    }
+  }
+
+  @media (max-width: 970px) {
+    h1 {
+      font-size: 9rem;
+    }
+
+    .animation {
+      width: 300px;
+    }
+  }
+
+  @media (max-width: 375px) {
+    h1 {
+      font-size: 8rem;
+    }
+
+    .animation {
+      width: 250px;
+    }
+  }
+}
