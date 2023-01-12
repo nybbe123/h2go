@@ -1,6 +1,8 @@
 import prisma from "../../prisma/prismaDb";
 import {
+  GetServerSideProps,
   GetStaticPropsContext,
+  InferGetServerSidePropsType,
   InferGetStaticPropsType,
   NextPage,
 } from "next";
@@ -19,41 +21,74 @@ import WaterDrop from "../../public/assets/images/water-drop.svg";
 import WaterGlas from "../../public/assets/images/water-glas.svg";
 import Menu from "../../components/menu";
 import CloseIcon from "../../public/assets/images/close-icon.svg";
+import { getSession } from "next-auth/react";
 
 
-// get static paths from api
-export const getStaticPaths = async () => {
-  const users = await prisma.user.findMany({
-    select: {
-      id: true,
-    },
-  });
+// // get static paths from api
+// export const getStaticPaths = async () => {
+//   const users = await prisma.user.findMany({
+//     select: {
+//       id: true,
+//     },
+//   });
 
-  const paths = users.map((item) => ({
-    params: { id: item.id.toString() },
-  }));
+//   const paths = users.map((item) => ({
+//     params: { id: item.id.toString() },
+//   }));
 
-  return {
-    paths,
-    fallback: "blocking",
-  };
-};
+//   return {
+//     paths,
+//     fallback: "blocking",
+//   };
+// };
 
-// get static paths from api
-export const getStaticProps = async ({
-  params,
-}: GetStaticPropsContext<{ id: string }>) => {
-  if (!params) {
-    return {
-      notFound: true,
-    };
-  }
+// // get static paths from api
+// export const getStaticProps = async ({
+//   params,
+// }: GetStaticPropsContext<{ id: string }>) => {
+//   if (!params) {
+//     return {
+//       notFound: true,
+//     };
+//   }
 
-  const { id } = params;
+//   const { id } = params;
+
+//   let user = await prisma.user.findUnique({
+//       where: {
+//         id
+//       },
+//       select: {
+//         id: true,
+//         intake: true,
+//         goal: true,
+//         name: true,
+//         history: true,
+//       },
+//   });
+
+//   if (!user) {
+//     return {
+//       notFound: true,
+//     };
+//   }
+  
+//   user = await JSON.parse(JSON.stringify(user));
+
+//   return {
+//       props: {
+//           user,
+//       },
+//       revalidate: 1,
+//   };
+// };
+
+export const getServerSideProps: GetServerSideProps = async ({params}) => {
+  let id = params?.id as string
 
   let user = await prisma.user.findUnique({
       where: {
-        id
+        id: id
       },
       select: {
         id: true,
@@ -73,10 +108,7 @@ export const getStaticProps = async ({
   user = await JSON.parse(JSON.stringify(user));
 
   return {
-      props: {
-          user,
-      },
-      revalidate: 1,
+    props: { user },
   };
 };
 
@@ -89,9 +121,10 @@ const quotes: string[] = [
   "Vatten kan hjälpa till att förebygga och behandla huvudvärk. Uttorkning kan utlösa huvudvärk och migrän hos vissa individer. Huvudvärk är ett av de vanligaste symtomen på uttorkning.",
 ];
 
-const UserBoard: NextPage<
-InferGetStaticPropsType<typeof getStaticProps>
-> = ({ user }) => {
+// const UserBoard: NextPage<
+// InferGetStaticPropsType<typeof getStaticProps>
+// > = ({ user }) => {
+const UserBoard: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = ({user}) => {
   const DUMMY_INTAKEDATA = [125, 175, 250, 500, 750, 1000]
   const [intake, setIntake] = useState<number>(parseInt(user?.intake!))
   const [percentage, setPercentage] = useState<number>(() => Math.floor((intake/+user?.goal!) * 100))
@@ -235,7 +268,7 @@ InferGetStaticPropsType<typeof getStaticProps>
           <div className={styles['history-container']}>
             {user?.history.length !== 0 ? 
             <ul>
-              {user?.history.map((day, index) => {
+              {user?.history.map((day: any, index: any) => {
                 return (
                   <li key={index}>
                     <div className={styles.date}>
