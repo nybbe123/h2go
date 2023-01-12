@@ -19,7 +19,6 @@ import WaterDrop from "../../public/assets/images/water-drop.svg";
 import WaterGlas from "../../public/assets/images/water-glas.svg";
 import Menu from "../../components/menu";
 import CloseIcon from "../../public/assets/images/close-icon.svg";
-import { useRouter } from "next/router";
 
 
 // get static paths from api
@@ -63,9 +62,6 @@ export const getStaticProps = async ({
         name: true,
         history: true,
       },
-      // include: {
-      //   history: true
-      // }
   });
 
   if (!user) {
@@ -76,27 +72,9 @@ export const getStaticProps = async ({
   
   user = await JSON.parse(JSON.stringify(user));
 
-  // let histories = await prisma.user.findUnique({
-  //   where: {
-  //     id: id
-  //   },
-  //   include: {
-  //     history: true
-  //   }
-  // });
-
-  // if (!histories) {
-  //   return {
-  //     notFound: true,
-  //   };
-  // }
-  
-  // histories = await JSON.parse(JSON.stringify(histories))
-
   return {
       props: {
           user,
-          // histories: histories
       },
       revalidate: 10,
   };
@@ -114,7 +92,6 @@ const quotes: string[] = [
 const UserBoard: NextPage<
 InferGetStaticPropsType<typeof getStaticProps>
 > = ({ user }) => {
-  const router = useRouter();
   const DUMMY_INTAKEDATA = [125, 175, 250, 500, 750, 1000]
   const [intake, setIntake] = useState<number>(parseInt(user?.intake!))
   const [percentage, setPercentage] = useState<number>(() => Math.floor((intake/+user?.goal!) * 100))
@@ -146,13 +123,12 @@ InferGetStaticPropsType<typeof getStaticProps>
         "Content-type": "application/json",
       },
       body: JSON.stringify(data),
+      next: { revalidate: 10 }
     });
 
     if (response.ok) {
-      await response.json();
-      await router.push(`/userboard/${user?.id}`);
-      // return data;
-      // router.reload();
+      const data = await response.json();
+      return data;
     } else {
       console.log("error");
     }
