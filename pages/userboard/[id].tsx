@@ -94,7 +94,7 @@ export const getStaticProps = async ({
           user,
           // histories: histories
       },
-      revalidate: 1,
+      revalidate: 10,
   };
 };
 
