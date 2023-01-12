@@ -27,7 +27,9 @@
   cursor: pointer;
 
   @media(max-width: 970px) {
-    display: none;
+    position: static;
+    width: 100%;
+    justify-content: flex-start;
   }
 }
 
@@ -100,14 +102,24 @@
     top: 50%;
     left: 50%;
     translate: -50% -50%;
-    font-size: 20rem;
+    font-size: 30rem;
     margin: 0;
     color: var(--bg);
   }
 
   .animation {
-    width: 650px;
+    width: 850px;
     height: auto;
+  }
+
+    @media (max-width: 1500px) {
+    h1 {
+      font-size: 18rem;
+    }
+
+    .animation {
+      width: 550px;
+    }
   }
 
   @media (max-width: 1300px) {

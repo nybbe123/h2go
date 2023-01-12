@@ -8,7 +8,9 @@ import { ChangeEvent, useEffect, useState } from "react";
 import Image from "next/image";
 import MenuIcon from '../../public/assets/images/menu.svg'
 import Confirm from "../../public/assets/images/confirm-smal.svg";
+import CloseIcon from "../../public/assets/images/close-icon.svg";
 import { useRouter } from "next/router";
+import Menu from "../../components/menu";
 
 // get static paths from api
 export const getStaticPaths = async () => {
@@ -70,6 +72,7 @@ InferGetStaticPropsType<typeof getStaticProps>
   const [formIsEmpty, setFormIsEmpty] = useState<boolean>(true);
   const [formIsValid, setFormIsValid] = useState<boolean>(true);
   const [isComplete, setIsComplete] = useState<boolean>(false);
+  const [toogleOpen, setToogleOpen] = useState<boolean>(false);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setName(e.target.value);
@@ -131,9 +134,10 @@ InferGetStaticPropsType<typeof getStaticProps>
 
   return (
     <div className={styles.root}>
-      <div className={styles.menu}>
-        <MenuIcon />
-      </div>
+      <Menu isOpen={toogleOpen} />
+      <div className={styles.menu} onClick={() => setToogleOpen(!toogleOpen)}>
+          {toogleOpen ? <CloseIcon /> : <MenuIcon />}
+        </div>
       <div className={styles["logo-container"]}>
         <Logo />
       </div>

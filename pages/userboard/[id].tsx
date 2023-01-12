@@ -212,7 +212,7 @@ const UserBoard: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = ({u
   return (
     <>
       <div className={styles.root}>
-        <Menu isOpen={toogleOpen} />
+        <Menu isOpen={toogleOpen} id={user.id} />
         <div className={styles["logo-container"]}>
           <Logo />
         </div>

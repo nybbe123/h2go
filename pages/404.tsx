@@ -41,7 +41,7 @@ export default function Custom404() {
         <div className={styles.content}>
           <h2>Ooops.</h2>
           <h3>Sidan du letar efter verkar inte finnas, men det är lungt!</h3>
-          <p>Du har stött på vår 404 sida. Detta betyder att sidan du letar efter helt enkelt inte finns. Det är inte ditt fel, det är bara ett missförstånd. Du kan enkelt ta dig tillbaka genom knappen nedanför</p>
+          <p>Du har stött på vår 404 sida. Detta betyder att sidan du letar efter helt enkelt inte finns. Du kan enkelt ta dig tillbaka genom knappen nedanför</p>
           <button onClick={() => route.push('/')}>Ta mig hem</button>
         </div>
         <div className={styles.abstract}>

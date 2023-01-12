@@ -9,18 +9,20 @@ import { signOut } from "next-auth/react";
 
 interface Props {
   isOpen: boolean;
+  id?: string
 }
 
 const Menu: NextPage<Props> = (props: Props) => {
   const isOpen = props.isOpen;
+  const id = props.id
 
   return (
     <div className={`${styles.root} ${props.isOpen ? styles.active : ""}`}>
       <ul className={styles["ul-container"]}>
-        <Link href={"#"}>
+        <Link href={"/"}>
           <HomeIcon /> <span>Hem</span>
         </Link>
-        <Link href={"#"}>
+        <Link href={`/profile/${id}`}>
           <ProfileIcon /> <span>Profil</span>
         </Link>
         <Link href={"#"}>
