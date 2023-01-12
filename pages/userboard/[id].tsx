@@ -1,13 +1,9 @@
 import prisma from "../../prisma/prismaDb";
 import {
-  GetServerSideProps,
   GetStaticPropsContext,
-  InferGetServerSidePropsType,
   InferGetStaticPropsType,
   NextPage,
-  NextPageContext,
 } from "next";
-import { getSession, signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { UserData } from "./../goal";
 import styles from "../../styles/UserBoard.module.scss";
@@ -23,6 +19,7 @@ import WaterDrop from "../../public/assets/images/water-drop.svg";
 import WaterGlas from "../../public/assets/images/water-glas.svg";
 import Menu from "../../components/menu";
 import CloseIcon from "../../public/assets/images/close-icon.svg";
+import { useRouter } from "next/router";
 
 
 // get static paths from api
@@ -117,6 +114,7 @@ const quotes: string[] = [
 const UserBoard: NextPage<
 InferGetStaticPropsType<typeof getStaticProps>
 > = ({ user }) => {
+  const router = useRouter();
   const DUMMY_INTAKEDATA = [125, 175, 250, 500, 750, 1000]
   const [intake, setIntake] = useState<number>(parseInt(user?.intake!))
   const [percentage, setPercentage] = useState<number>(() => Math.floor((intake/+user?.goal!) * 100))
@@ -151,8 +149,10 @@ InferGetStaticPropsType<typeof getStaticProps>
     });
 
     if (response.ok) {
-      const data = await response.json();
-      return data;
+      await response.json();
+      await router.push(`/userboard/${user?.id}`);
+      // return data;
+      // router.reload();
     } else {
       console.log("error");
     }
