@@ -205,6 +205,10 @@ const UserBoard: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = ({u
     setCuriosa(quotes[randomNum]);
   }, []);
 
+  function setHistoryGoal(intake: string, goal: string) {
+    return Math.floor((parseInt(intake) / parseInt(goal)) * 100)
+  }
+
   return (
     <>
       <div className={styles.root}>
@@ -277,7 +281,7 @@ const UserBoard: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = ({u
                       <p>{day.month}</p>
                     </div>
                     <div className={styles["history-intake"]}>
-                      <p>100% completed</p>
+                      <p>{setHistoryGoal(day.intake, day.goal)}% completed</p>
                       <p>{day.intake}/{day.goal}ml</p>
                     </div>
                     <div className={styles['icon-indicator']}>
