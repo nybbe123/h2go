@@ -4,13 +4,14 @@ import Bubble from "../../public/assets/images/bubble.webp";
 import styles from "../../styles/ProfilePage.module.scss";
 import Logo from "../../public/assets/images/logo.svg";
 import { UserData } from "../goal";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import MenuIcon from '../../public/assets/images/menu.svg'
 import Confirm from "../../public/assets/images/confirm-smal.svg";
 import CloseIcon from "../../public/assets/images/close-icon.svg";
 import { useRouter } from "next/router";
 import Menu from "../../components/menu";
+import { LottiePlayer } from "lottie-web";
 
 // get static paths from api
 export const getStaticPaths = async () => {
@@ -73,6 +74,30 @@ InferGetStaticPropsType<typeof getStaticProps>
   const [formIsValid, setFormIsValid] = useState<boolean>(true);
   const [isComplete, setIsComplete] = useState<boolean>(false);
   const [toogleOpen, setToogleOpen] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const ref = useRef<HTMLDivElement>(null);
+  const [lottie, setLottie] = useState<LottiePlayer | null>(null);
+
+  useEffect(() => {
+    import("lottie-web").then((Lottie) => setLottie(Lottie.default));
+  }, []);
+
+  useEffect(() => {
+    if (lottie && ref.current) {
+      const animation = lottie.loadAnimation({
+        container: ref.current,
+        renderer: "svg",
+        loop: true,
+        autoplay: true,
+        path: "/spinner.json",
+      });
+
+      animation.setSpeed(2.5);
+
+      return () => animation.destroy();
+    }
+  }, [lottie]);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setName(e.target.value);
@@ -82,6 +107,7 @@ InferGetStaticPropsType<typeof getStaticProps>
     if (goalValue >= 3000) return;
     setGoalValue((prevValue) => prevValue + 100);
   }
+  
   function decreaseGoalValue() {
     if (goalValue <= 1000) return;
     setGoalValue((prevValue) => prevValue - 100);
@@ -106,6 +132,8 @@ InferGetStaticPropsType<typeof getStaticProps>
       setFormIsValid(true)
     }
 
+    setIsLoading(true)
+
     const data: UserData = {
       id: user?.id,
       name: name,
@@ -126,6 +154,7 @@ InferGetStaticPropsType<typeof getStaticProps>
       setGoalValue(parseInt(res.goal))
       setIsComplete(true)
       setFormIsEmpty(true)
+      setIsLoading(false)
 
     } else {
       console.log("error");
@@ -194,11 +223,12 @@ InferGetStaticPropsType<typeof getStaticProps>
             </div>
             <button
               type="submit"
-              className={`${styles["save-button"]} ${
-                formIsEmpty ? '' : styles["active"]
-              }`}
+              className={`${styles["save-button"]} ${formIsEmpty ? '' : styles["active"]} ${isLoading ? styles['is-loading'] : ''}`}
             >
-              Spara val
+              {isLoading
+              ? <div ref={ref} className={styles["animation"]} />
+              : "Spara val"
+              }
             </button>
             <div className={`${styles.error} ${formIsValid ? '' : styles.invalid}`}>
               <p>Inga ändringar har gjorts</p>
