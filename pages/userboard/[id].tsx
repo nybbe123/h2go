@@ -21,7 +21,6 @@ import WaterDrop from "../../public/assets/images/water-drop.svg";
 import WaterGlas from "../../public/assets/images/water-glas.svg";
 import Menu from "../../components/menu";
 import CloseIcon from "../../public/assets/images/close-icon.svg";
-import { getSession } from "next-auth/react";
 
 
 // // get static paths from api

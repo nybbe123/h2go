@@ -66,12 +66,10 @@
   }
 }
 
-.save-goal-button {
-  margin-top: 2rem;
+.save-button {
   padding: 1rem 2rem;
   width: 100%;
   background-color: var(--inactive-blue);
-  justify-content: center;
   color: var(--white);
   font-size: 1.1rem;
   letter-spacing: 1px;
@@ -79,36 +77,25 @@
   display: flex;
   border-radius: 6px;
   transition: 250ms;
+  border: none;
+  justify-content: center;
 
-  &:hover {
-    cursor: pointer;
+  &.active {
     background-color: var(--primary-blue);
+
+    &:hover {
+      cursor: pointer;
+      background-color: var(--dark-blue);
+    }
   }
 
-}
-
-.logout-button-save-goal {
-  margin-top: 2rem;
-  padding: 1rem 2rem;
-  width: 100%;
-  background-color: transparent;
-  border: solid 1px;
-  color: var(--white);
-  font-size: 1.1rem;
-  letter-spacing: 1px;
-  font-weight: 500;
-  display: flex;
-  border-radius: 6px;
-  transition: 250ms;
-
-  justify-content: center;
-
-  &:hover {
-    cursor: pointer;
-    background-color: var(--dark-blue);
-    color: var(--white);
-    }
-
+  @media(max-width: 470px) {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 3rem);
+  }
 }
 
 .goal-container {

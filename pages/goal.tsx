@@ -1,12 +1,13 @@
 import { GetServerSideProps, NextPage } from "next";
 import { getSession, signOut, useSession } from "next-auth/react";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import prisma from "../prisma/prismaDb";
 import styles from "../styles/GoalPage.module.scss";
 import Logo from "../public/assets/images/logo.svg";
 import Image from "next/image";
 import Bubble from "../public/assets/images/bubble.webp";
+
 
 export interface UserData {
   name?: string | undefined;
@@ -49,11 +50,20 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-const GoalPage: NextPage = () => {
+  const GoalPage: NextPage = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const [goalValue, setGoalValue] = useState<number>(1500);
-  const [name, setName] = useState<string>();
+  const [name, setName] = useState<string>('');
+  const [formIsEmpty, setFormIsEmpty] = useState<boolean>(false);
+
+  useEffect(() => {
+    if(name === '') {
+      return setFormIsEmpty(false)
+    } else {
+      setFormIsEmpty(true)
+    }
+  },[name])
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setName(e.target.value);
@@ -157,7 +167,9 @@ const GoalPage: NextPage = () => {
                 och 2000 ml under varma och aktiva dagar.
               </p>
             </div>
-            <button type="submit" className={styles["save-goal-button"]}>
+            <button
+              type="submit"
+              className={`${styles["save-button"]} ${formIsEmpty === true ? styles["active"] : ''}`}>
               Spara val
             </button>
           </div>
