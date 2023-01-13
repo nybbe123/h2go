@@ -191,6 +191,10 @@
   border: none;
   justify-content: center;
 
+  p {
+    margin: 0;
+  }
+
   &.active {
     background-color: var(--primary-blue);
 
@@ -198,15 +202,30 @@
       cursor: pointer;
       background-color: var(--dark-blue);
     }
+  }
 
-    &.is-loading {
+  &.is-loading {
+    transition: 0ms;
+    background-color: transparent;
+
+    &:hover {
       background-color: transparent;
+      cursor: initial;
+    }
+    
+    p{
+      opacity: 0;
+    }
+
+    .animation {
+      opacity: 1;
     }
   }
 
   .animation{
+    opacity: 0;
     position: absolute;
-    top: 50%;
+    top: 0;
     left: 50%;
     translate: -50% -50%;
     width: 65px;
@@ -274,8 +293,8 @@
     display: block;
     height: 100vh;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 4;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 6;
   }
 }
 
@@ -288,7 +307,7 @@
     left: 50%;
     translate: -50% -50%;
     background-color: var(--card-bg);
-    z-index: 5;
+    z-index: 7;
     padding: 2rem 3rem;
     width: 32rem;
     height: 20rem;
@@ -297,10 +316,25 @@
     flex-direction: column;
     justify-content: space-between;
 
+    @media(max-width: 590px) {
+      width: calc(100% - 3rem);
+      padding: 2rem 1.5rem;
+      height: 28rem;
+
+      p:last-child {
+        line-height: 100px;
+      }
+    }
+
     .container {
       display: flex;
       align-items: center;
       gap: 1rem;
+
+      @media(max-width: 590px) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
 
       p:first-child {
         font-size: 1.8rem;

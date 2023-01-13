@@ -70,7 +70,7 @@ InferGetStaticPropsType<typeof getStaticProps>
   const router = useRouter()
   const [goalValue, setGoalValue] = useState<number>(parseInt(user?.goal!));
   const [name, setName] = useState<string>(user?.name!);
-  const [formIsEmpty, setFormIsEmpty] = useState<boolean>(true);
+  const [formIsEmpty, setFormIsEmpty] = useState<boolean>(false);
   const [formIsValid, setFormIsValid] = useState<boolean>(true);
   const [isComplete, setIsComplete] = useState<boolean>(false);
   const [toogleOpen, setToogleOpen] = useState<boolean>(false);
@@ -152,10 +152,11 @@ InferGetStaticPropsType<typeof getStaticProps>
       const res = await response.json();
       setName(res.name)
       setGoalValue(parseInt(res.goal))
-      setIsComplete(true)
-      setFormIsEmpty(true)
-      setIsLoading(false)
-
+      setTimeout(() => {
+        setFormIsEmpty(true)
+        setIsLoading(false)
+        setIsComplete(true)
+      }, 2000);
     } else {
       console.log("error");
     }
@@ -221,14 +222,9 @@ InferGetStaticPropsType<typeof getStaticProps>
                 En vuxen rekommenderas att dricka minst 1500 ml dagligen och 2000 ml under varma och aktiva dagar.
               </p>
             </div>
-            <button
-              type="submit"
-              className={`${styles["save-button"]} ${formIsEmpty ? '' : styles["active"]} ${isLoading ? styles['is-loading'] : ''}`}
-            >
-              {isLoading
-              ? <div ref={ref} className={styles["animation"]} />
-              : "Spara val"
-              }
+            <button type="submit" className={`${styles["save-button"]} ${formIsEmpty ? '' : styles["active"]} ${isLoading ? styles['is-loading'] : ''}`}>
+              <p>Spara val</p>
+              <div ref={ref} className={styles["animation"]} />
             </button>
             <div className={`${styles.error} ${formIsValid ? '' : styles.invalid}`}>
               <p>Inga ändringar har gjorts</p>
