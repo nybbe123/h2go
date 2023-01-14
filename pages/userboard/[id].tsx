@@ -233,7 +233,7 @@ const UserBoard: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = ({u
               <div>
                 <WaterDrop />
                 <h3>{intake}ml</h3>
-                <p>of {user?.goal}ml</p>
+                <p>av {user?.goal}ml</p>
               </div>
               <div>
                 <WaterGlas />
@@ -271,7 +271,7 @@ const UserBoard: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = ({u
           <div className={styles['history-container']}>
             {user?.history.length !== 0 ? 
             <ul>
-              {user?.history.reverse().map((day: any, index: any) => {
+              {user?.history.slice().reverse().map((day: any, index: any) => {
                 return (
                   <li key={index}>
                     <div className={styles.date}>
@@ -301,7 +301,7 @@ const UserBoard: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = ({u
             }
           </div>
         </div>
-        <div className={toogleOpen ? styles.modal : ""} />
+        <div className={toogleOpen ? styles.modal : ""} onClick={() => setToogleOpen(false)} />
       </div>
     </>
   );

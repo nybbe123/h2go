@@ -1,4 +1,4 @@
-import { GetStaticPropsContext, InferGetStaticPropsType, NextPage } from "next";
+import { GetServerSideProps, GetStaticPropsContext, InferGetServerSidePropsType, InferGetStaticPropsType, NextPage } from "next";
 import prisma from "../../prisma/prismaDb";
 import Bubble from "../../public/assets/images/bubble.webp";
 import styles from "../../styles/ProfilePage.module.scss";
@@ -13,60 +13,90 @@ import { useRouter } from "next/router";
 import Menu from "../../components/menu";
 import { LottiePlayer } from "lottie-web";
 
-// get static paths from api
-export const getStaticPaths = async () => {
-  const users = await prisma.user.findMany({
-      select: {
-          id: true,
-      },
-  });
+// // get static paths from api
+// export const getStaticPaths = async () => {
+//   const users = await prisma.user.findMany({
+//       select: {
+//           id: true,
+//       },
+//   });
 
-  const paths = users.map((item) => ({
-      params: { id: item.id.toString() },
-  }));
+//   const paths = users.map((item) => ({
+//       params: { id: item.id.toString() },
+//   }));
 
-  return {
-      paths,
-      fallback: "blocking",
-  };
-};
+//   return {
+//       paths,
+//       fallback: "blocking",
+//   };
+// };
 
-// get static paths from api
-export const getStaticProps = async ({params}: GetStaticPropsContext<{id: string}>) => {
+// // get static paths from api
+// export const getStaticProps = async ({params}: GetStaticPropsContext<{id: string}>) => {
   
-  if(!params) {
-    return {
-      notFound: true
-    }
-  }
+//   if(!params) {
+//     return {
+//       notFound: true
+//     }
+//   }
 
-  const {id} = params
+//   const {id} = params
+
+//   let user = await prisma.user.findUnique({
+//       where: {
+//         id
+//       },
+//   });
+  
+//   if (!user) {
+//     return {
+//       notFound: true,
+//     };
+//   }
+  
+//   user = await JSON.parse(JSON.stringify(user))
+
+// return {
+//     props: {
+//         user,
+//     },
+//     revalidate: 1,
+// };
+// };
+
+export const getServerSideProps: GetServerSideProps = async ({params}) => {
+  let id = params?.id as string
 
   let user = await prisma.user.findUnique({
       where: {
-        id
+        id: id
+      },
+      select: {
+        id: true,
+        intake: true,
+        goal: true,
+        name: true,
+        email: true,
       },
   });
-  
+
   if (!user) {
     return {
       notFound: true,
     };
   }
   
-  user = await JSON.parse(JSON.stringify(user))
+  user = await JSON.parse(JSON.stringify(user));
 
-return {
-    props: {
-        user,
-    },
-    revalidate: 1,
-};
+  return {
+    props: { user },
+  };
 };
 
-const ProfilePage: NextPage<
-InferGetStaticPropsType<typeof getStaticProps>
-> = ({ user }) => {
+// const ProfilePage: NextPage<
+// InferGetStaticPropsType<typeof getStaticProps>
+// > = ({ user }) => {
+  const ProfilePage: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = ({user}) => {
   const router = useRouter()
   const [goalValue, setGoalValue] = useState<number>(parseInt(user?.goal!));
   const [name, setName] = useState<string>(user?.name!);

@@ -50,6 +50,13 @@
     line-height: 1.4rem;
   }
 
+  @media(max-width: 430px) {
+    p {
+      font-size: .9rem;
+      line-height: 1.4rem;
+    }
+  }
+
   button {
     @media (max-width: 640px) {
       position: absolute;
