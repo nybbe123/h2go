@@ -271,7 +271,7 @@ const UserBoard: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = ({u
           <div className={styles['history-container']}>
             {user?.history.length !== 0 ? 
             <ul>
-              {user?.history.map((day: any, index: any) => {
+              {user?.history.reverse().map((day: any, index: any) => {
                 return (
                   <li key={index}>
                     <div className={styles.date}>

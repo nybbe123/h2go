@@ -1,5 +1,5 @@
 .root {
-  height: 100vh;
+  height: var(--app-height);
   overflow: hidden;
   display: flex;
   align-items: center;

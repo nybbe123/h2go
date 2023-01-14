@@ -1,5 +1,5 @@
 .root {
-    height: 100vh;
+    height: var(--app-height);
     background-color: var(--card-bg);
     position: absolute;
     right: -30rem;
