@@ -1,12 +1,13 @@
 import { GetServerSideProps, NextPage } from "next";
 import { getSession, signOut, useSession } from "next-auth/react";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import prisma from "../prisma/prismaDb";
 import styles from "../styles/GoalPage.module.scss";
 import Logo from "../public/assets/images/logo.svg";
 import Image from "next/image";
 import Bubble from "../public/assets/images/bubble.webp";
+import { LottiePlayer } from "lottie-web";
 
 
 export interface UserData {
@@ -55,13 +56,37 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const router = useRouter();
   const [goalValue, setGoalValue] = useState<number>(1500);
   const [name, setName] = useState<string>('');
-  const [formIsEmpty, setFormIsEmpty] = useState<boolean>(false);
+  const [formIsEmpty, setFormIsEmpty] = useState<boolean>(true);
+  const [formIsValid, setFormIsValid] = useState<boolean>(true);
+  const ref = useRef<HTMLDivElement>(null);
+  const [lottie, setLottie] = useState<LottiePlayer | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    import("lottie-web").then((Lottie) => setLottie(Lottie.default));
+  }, []);
+
+  useEffect(() => {
+    if (lottie && ref.current) {
+      const animation = lottie.loadAnimation({
+        container: ref.current,
+        renderer: "svg",
+        loop: true,
+        autoplay: true,
+        path: "/spinner.json",
+      });
+
+      animation.setSpeed(2.5);
+
+      return () => animation.destroy();
+    }
+  }, [lottie]);
 
   useEffect(() => {
     if(name === '') {
-      return setFormIsEmpty(false)
+      return setFormIsEmpty(true)
     } else {
-      setFormIsEmpty(true)
+      setFormIsEmpty(false)
     }
   },[name])
 
@@ -81,6 +106,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   async function submitFormHandler(e: React.SyntheticEvent) {
     e.preventDefault();
 
+    setIsLoading(true)
+
     const data: UserData = {
       id: session?.user?.id,
       name: name,
@@ -97,7 +124,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     if (response.ok) {
       const res = await response.json();
-      router.push(`/userboard/${session?.user.id}`);
+      setTimeout(() => {
+        setIsLoading(false)
+        router.push(`/userboard/${session?.user.id}`);
+      }, 2000);
     } else {
       console.log("error");
     }
@@ -108,18 +138,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       <Image src={Bubble} alt="bubble" className={styles.bubbleOne} />
       <Image src={Bubble} alt="bubble" className={styles.bubbleTwo} />
       <Image src={Bubble} alt="bubble" className={styles.bubbleThree} />
-      <div className={styles["logo-container-save-goal"]}>
+      <div className={styles["logo-container"]}>
         <Logo />
       </div>
-      <div>
-        <div>
-          <h1>Välkommen!</h1>
-          <p>
-            Ange ditt namn och ställ in ditt dagliga vattenintag för att komma
-            igång
-          </p>
+      <div className={styles.wrapper}>
+        <div className={styles['title']}>
+          <h2>Välkommen!</h2>
+          <p>Fyll i ditt namn och dagliga mål för att komma igång</p>
         </div>
-
         <form onSubmit={submitFormHandler} className={styles["inputfield"]}>
           <label htmlFor="first">
             Namn:
@@ -127,10 +153,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
               type="text"
               id="first"
               name="first"
+              value={name}
               required
               minLength={2}
               maxLength={12}
-              pattern="[a-ö]{1,15}{A-Ö}"
+              pattern="[a-zA-Z]{1,12}"
               title="Ditt namn måste innehålla mellan 2 och 12 bokstäver (a till ö)."
               placeholder="Skriv ditt namn här"
               onChange={handleChange}
@@ -139,9 +166,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
           </label>
           <div>
             <div className={styles["goal-container"]}>
-              <div>
-                <h1 className={styles["goal-number"]}>{goalValue}</h1>
-                <h4>ml/dag</h4>
+              <div className={styles["goal-number"]}>
+                <h2>{goalValue}</h2>
+                <p>ml/dag</p>
               </div>
               <div className={styles["add-remove-buttons-container"]}>
                 <button
@@ -160,18 +187,18 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
                 </button>
               </div>
             </div>
-            <div className={styles["goal-info-text"]}>
+            <div className={styles["info-text"]}>
               <p>
-                En vuxen rekommenderas att dricka minst 1500 ml dagligen
-                <br></br>
-                och 2000 ml under varma och aktiva dagar.
+                En vuxen rekommenderas att dricka minst 1500 ml dagligen och 2000 ml under varma och aktiva dagar.
               </p>
             </div>
-            <button
-              type="submit"
-              className={`${styles["save-button"]} ${formIsEmpty === true ? styles["active"] : ''}`}>
-              Spara val
+            <button type="submit" className={`${styles["save-button"]} ${formIsEmpty ? '' : styles["active"]} ${isLoading ? styles['is-loading'] : ''}`}>
+              <p>Spara val</p>
+              <div ref={ref} className={styles["animation"]} />
             </button>
+            <div className={`${styles.error} ${formIsValid ? '' : styles.invalid}`}>
+              <p>Inga ändringar har gjorts</p>
+            </div>
           </div>
         </form>
       </div>
