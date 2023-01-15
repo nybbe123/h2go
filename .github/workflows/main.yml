@@ -1,0 +1,14 @@
+
+name: weekly-cron
+on:
+  schedule:
+    - cron: '0 23 * * SUN'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete user history
+        run: |
+          curl --request DELETE \
+          --url 'https://h2go.vercel.app/api/cronhistory' \
+          --header 'Authorization: Bearer ${{ secrets.API_SECRET_KEY }}'
