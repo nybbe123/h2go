@@ -27,13 +27,6 @@ content-type: application/json
 
 ###
 
-curl --request POST \
-     --url 'http://localhost:3000/api/cron' \
-     --header 'Authorization: Bearer p4BzzpE3WXgjriSzgaDtbQMYx'
-
-
-###
-
 POST http://localhost:3000/api/history HTTP/1.1
 content-type: application/json
 
@@ -45,3 +38,15 @@ content-type: application/json
     "day": "2",
     "month": "3"
 }
+
+###
+
+curl --request POST \
+     --url 'http://localhost:3000/api/cron' \
+     --header 'Authorization: Bearer p4BzzpE3WXgjriSzgaDtbQMYx'
+
+###
+
+curl --request DELETE \
+     --url 'http://localhost:3000/api/cronhistory' \
+     --header 'Authorization: Bearer p4BzzpE3WXgjriSzgaDtbQMYx'
