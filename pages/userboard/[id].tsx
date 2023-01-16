@@ -21,7 +21,9 @@ import WaterDrop from "../../public/assets/images/water-drop.svg";
 import WaterGlas from "../../public/assets/images/water-glas.svg";
 import Menu from "../../components/menu";
 import CloseIcon from "../../public/assets/images/close-icon.svg";
-
+import GlassIcon from "../../public/assets/images/glass1-icon.svg";
+import CanIcon from "../../public/assets/images/can1-icon.svg";
+import BottleIcon from "../../public/assets/images/bottle1-icon.svg";
 
 // // get static paths from api
 // export const getStaticPaths = async () => {
@@ -71,7 +73,7 @@ import CloseIcon from "../../public/assets/images/close-icon.svg";
 //       notFound: true,
 //     };
 //   }
-  
+
 //   user = await JSON.parse(JSON.stringify(user));
 
 //   return {
@@ -82,20 +84,20 @@ import CloseIcon from "../../public/assets/images/close-icon.svg";
 //   };
 // };
 
-export const getServerSideProps: GetServerSideProps = async ({params}) => {
-  let id = params?.id as string
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  let id = params?.id as string;
 
   let user = await prisma.user.findUnique({
-      where: {
-        id: id
-      },
-      select: {
-        id: true,
-        intake: true,
-        goal: true,
-        name: true,
-        history: true,
-      },
+    where: {
+      id: id,
+    },
+    select: {
+      id: true,
+      intake: true,
+      goal: true,
+      name: true,
+      history: true,
+    },
   });
 
   if (!user) {
@@ -103,7 +105,7 @@ export const getServerSideProps: GetServerSideProps = async ({params}) => {
       notFound: true,
     };
   }
-  
+
   user = await JSON.parse(JSON.stringify(user));
 
   return {
@@ -123,13 +125,29 @@ const quotes: string[] = [
 // const UserBoard: NextPage<
 // InferGetStaticPropsType<typeof getStaticProps>
 // > = ({ user }) => {
-const UserBoard: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = ({user}) => {
-  const DUMMY_INTAKEDATA = [125, 175, 250, 500, 750, 1000]
-  const [intake, setIntake] = useState<number>(parseInt(user?.intake!))
-  const [percentage, setPercentage] = useState<number>(() => Math.floor((intake/+user?.goal!) * 100))
-  const [glasLeft, setGlasLeft] = useState<number>(() => Math.ceil((+user?.goal!-intake)/125))
-  const [personalMessage, setPersonalMessage] = useState<string>('')
-  const [curiosa, setCuriosa] = useState<string>('')
+const UserBoard: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = ({
+  user,
+}) => {
+  const DUMMY_INTAKEDATA = [125, 175, 250, 750];
+  const DUMMY_INTAKEDATA2 = [
+    {
+      data: 330,
+      image: CanIcon,
+    },
+    {
+      data: 500,
+      image: BottleIcon,
+    },
+  ];
+  const [intake, setIntake] = useState<number>(parseInt(user?.intake!));
+  const [percentage, setPercentage] = useState<number>(() =>
+    Math.floor((intake / +user?.goal!) * 100)
+  );
+  const [glasLeft, setGlasLeft] = useState<number>(() =>
+    Math.ceil((+user?.goal! - intake) / 125)
+  );
+  const [personalMessage, setPersonalMessage] = useState<string>("");
+  const [curiosa, setCuriosa] = useState<string>("");
   const [toogleOpen, setToogleOpen] = useState<boolean>(false);
 
   function addIntake(value: number) {
@@ -176,26 +194,26 @@ const UserBoard: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = ({u
       } else {
         return Math.ceil((+user?.goal! - intake) / 125);
       }
-    })
-  }, [intake, user?.goal])
+    });
+  }, [intake, user?.goal]);
 
   useEffect(() => {
-    if(percentage === 0) {
-      return setPersonalMessage(`Glöm inte att dricka vatten idag`)
-    } else if(percentage > 0 && percentage < 29) {
-      return setPersonalMessage(`Du är grym, fortsätt dricka vatten`)
-    } else if(percentage > 29 && percentage < 45) {
-      return setPersonalMessage(`Snart halvvägs, heja dig!`)
-    } else if(percentage > 45 && percentage < 60) {
-      return setPersonalMessage(`Halvvägs där, kämpa på!`)
-    } else if(percentage > 60 && percentage < 75) {
-      return setPersonalMessage(`Mindre än hälften kvar nu`)
-    } else if(percentage > 75 && percentage < 100) {
-      return setPersonalMessage(`Snart framme vid mållinjens!`)
-    } else if(percentage >= 100 && percentage < 115) {
-      return setPersonalMessage(`Bra jobbat idag, du är grym!`)
-    } else if(percentage > 115) {
-      return setPersonalMessage(`Drick inte för mycket kompis`)
+    if (percentage === 0) {
+      return setPersonalMessage(`Glöm inte att dricka vatten idag`);
+    } else if (percentage > 0 && percentage < 29) {
+      return setPersonalMessage(`Du är grym, fortsätt dricka vatten`);
+    } else if (percentage > 29 && percentage < 45) {
+      return setPersonalMessage(`Snart halvvägs, heja dig!`);
+    } else if (percentage > 45 && percentage < 60) {
+      return setPersonalMessage(`Halvvägs där, kämpa på!`);
+    } else if (percentage > 60 && percentage < 75) {
+      return setPersonalMessage(`Mindre än hälften kvar nu`);
+    } else if (percentage > 75 && percentage < 100) {
+      return setPersonalMessage(`Snart framme vid mållinjens!`);
+    } else if (percentage >= 100 && percentage < 115) {
+      return setPersonalMessage(`Bra jobbat idag, du är grym!`);
+    } else if (percentage > 115) {
+      return setPersonalMessage(`Drick inte för mycket kompis`);
     }
   }, [percentage, user?.name]);
 
@@ -205,7 +223,7 @@ const UserBoard: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = ({u
   }, []);
 
   function setHistoryGoal(intake: string, goal: string) {
-    return Math.floor((parseInt(intake) / parseInt(goal)) * 100)
+    return Math.floor((parseInt(intake) / parseInt(goal)) * 100);
   }
 
   return (
@@ -254,6 +272,18 @@ const UserBoard: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = ({u
           <p className={styles["add-intake-title"]}>Lägg till vattenintag</p>
           <div className={styles["add-intake-container"]}>
             <div className={styles["btn-container"]}>
+              {DUMMY_INTAKEDATA2.map((intakeData, index) => {
+                return (
+                  <button
+                    type="button"
+                    key={index}
+                    onClick={() => addIntake(intakeData.data)}
+                    className={styles.iconbtn}
+                  >
+                    <intakeData.image />
+                  </button>
+                );
+              })}
               {DUMMY_INTAKEDATA.map((intakeData, index) => {
                 return (
                   <button
@@ -267,41 +297,53 @@ const UserBoard: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = ({u
               })}
             </div>
           </div>
-          <p className={styles['history-title']}>senaste dagarna</p>
-          <div className={styles['history-container']}>
-            {user?.history.length !== 0 ? 
-            <ul>
-              {user?.history.slice().reverse().map((day: any, index: any) => {
-                return (
-                  <li key={index}>
-                    <div className={styles.date}>
-                      <p>{day.today}</p>
-                      <p className={styles.day}>{day.day}</p>
-                      <p>{day.month}</p>
-                    </div>
-                    <div className={styles["history-intake"]}>
-                      <p>{setHistoryGoal(day.intake, day.goal)}% completed</p>
-                      <p>{day.intake}/{day.goal}ml</p>
-                    </div>
-                    <div className={styles['icon-indicator']}>
-                      { parseInt(day.intake!) < parseInt(day.goal!) ? 
-                      <CheckRed />
-                        :
-                      <CheckBlue />
-                      }
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-            :  
-            <>
-            <p className={styles['no-history']}>Din historik kommer att synas här</p>
-            </>
-            }
+          <p className={styles["history-title"]}>senaste dagarna</p>
+          <div className={styles["history-container"]}>
+            {user?.history.length !== 0 ? (
+              <ul>
+                {user?.history
+                  .slice()
+                  .reverse()
+                  .map((day: any, index: any) => {
+                    return (
+                      <li key={index}>
+                        <div className={styles.date}>
+                          <p>{day.today}</p>
+                          <p className={styles.day}>{day.day}</p>
+                          <p>{day.month}</p>
+                        </div>
+                        <div className={styles["history-intake"]}>
+                          <p>
+                            {setHistoryGoal(day.intake, day.goal)}% completed
+                          </p>
+                          <p>
+                            {day.intake}/{day.goal}ml
+                          </p>
+                        </div>
+                        <div className={styles["icon-indicator"]}>
+                          {parseInt(day.intake!) < parseInt(day.goal!) ? (
+                            <CheckRed />
+                          ) : (
+                            <CheckBlue />
+                          )}
+                        </div>
+                      </li>
+                    );
+                  })}
+              </ul>
+            ) : (
+              <>
+                <p className={styles["no-history"]}>
+                  Din historik kommer att synas här
+                </p>
+              </>
+            )}
           </div>
         </div>
-        <div className={toogleOpen ? styles.modal : ""} onClick={() => setToogleOpen(false)} />
+        <div
+          className={toogleOpen ? styles.modal : ""}
+          onClick={() => setToogleOpen(false)}
+        />
       </div>
     </>
   );
