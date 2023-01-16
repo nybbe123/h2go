@@ -91,10 +91,10 @@ const SignUp: NextPage<
       </div>
       <div className={styles["form-container"]}>
         <div>
-          <h1>Hej kompis</h1>
+          <h1>Hej kompis!</h1>
           <p>
-            H2:GO är lösenordsfritt. Knappa in din email för
-            att logga in eller registrera ett nytt konto.
+            H2:GO är lösenordsfritt. Knappa in din email för att logga in eller
+            registrera ett nytt konto.
           </p>
         </div>
         <div>
