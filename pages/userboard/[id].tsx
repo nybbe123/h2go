@@ -6,7 +6,7 @@ import {
   InferGetStaticPropsType,
   NextPage,
 } from "next";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { UserData } from "./../goal";
 import styles from "../../styles/UserBoard.module.scss";
 import MenuIcon from "../../public/assets/images/menu.svg";
@@ -21,9 +21,9 @@ import WaterDrop from "../../public/assets/images/water-drop.svg";
 import WaterGlas from "../../public/assets/images/water-glas.svg";
 import Menu from "../../components/menu";
 import CloseIcon from "../../public/assets/images/close-icon.svg";
-import GlassIcon from "../../public/assets/images/glass1-icon.svg";
 import CanIcon from "../../public/assets/images/can1-icon.svg";
 import BottleIcon from "../../public/assets/images/bottle1-icon.svg";
+import { LottiePlayer } from "lottie-web";
 
 // // get static paths from api
 // export const getStaticPaths = async () => {
@@ -149,6 +149,28 @@ const UserBoard: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = ({
   const [personalMessage, setPersonalMessage] = useState<string>("");
   const [curiosa, setCuriosa] = useState<string>("");
   const [toogleOpen, setToogleOpen] = useState<boolean>(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const [lottie, setLottie] = useState<LottiePlayer | null>(null);
+
+  useEffect(() => {
+    import("lottie-web").then((Lottie) => setLottie(Lottie.default));
+  }, []);
+
+  useEffect(() => {
+    if (lottie && ref.current) {
+      const animation = lottie.loadAnimation({
+        container: ref.current,
+        renderer: "svg",
+        loop: true,
+        autoplay: true,
+        path: "/waves.json",
+      });
+
+      animation.setSpeed(.6);
+
+      return () => animation.destroy();
+    }
+  }, [lottie]);
 
   function addIntake(value: number) {
     setIntake((prevVal) => {
@@ -182,6 +204,17 @@ const UserBoard: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = ({
       console.log("error");
     }
   }
+
+  const [waterlevel, setWaterlevel] = useState<number>(percentage)
+
+  useEffect(() => {
+    if (percentage > 100) {
+      setWaterlevel(100)
+    } else {
+      setWaterlevel(percentage)
+    }
+
+  }, [percentage])
 
   useEffect(() => {
     setPercentage(() => Math.floor((intake / +user?.goal!) * 100));
@@ -242,10 +275,17 @@ const UserBoard: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = ({
           </div>
           <div className={styles["intake-data"]}>
             <div className={styles.percentage}>
-              <Star />
+              <div>
+                <Star />
+              </div>
               <p>Dagens mål</p>
               <h3>{percentage}%</h3>
               <p>avklarat</p>
+              <div className={styles['water-silo']}>
+                <div className={styles['water']} style={{height: `${waterlevel}%`}}>
+                  <div ref={ref} className={styles["animation"]} />
+                </div>
+              </div>
             </div>
             <div className={styles["intake"]}>
               <div>

@@ -155,7 +155,11 @@
       &:hover {
         cursor: pointer;
         background-color: var(--dark-blue);
-        }
+      }
+
+      &:active {
+        transform: translateY(4px);
+      }
     }
   }
 }

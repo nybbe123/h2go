@@ -158,7 +158,11 @@
       &:hover {
         cursor: pointer;
         background-color: var(--dark-blue);
-        }
+      }
+
+      &:active {
+        transform: translateY(4px);
+      }
     }
   }
 }
@@ -281,6 +285,10 @@
     background-color: var(--dark-blue);
     border-color: var(--dark-blue);
     cursor: pointer;
+  }
+
+  &:active {
+    transform: translateY(4px);
   }
 
   @media(max-width: 470px) {

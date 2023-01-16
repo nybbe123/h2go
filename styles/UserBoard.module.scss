@@ -90,6 +90,7 @@
     }
 
     .percentage {
+      position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -99,14 +100,19 @@
       border: 1px solid var(--white);
       background-color: var(--bg);
       border-radius: 6px;
+      overflow: hidden;
 
-      svg{
-        scale: 150%;
-        margin-bottom: 1.4rem;
+      div:first-child {
+        z-index: 2;
 
-        @media(max-width: 640px) {
-          scale: 100%;
-          margin-bottom: 0;
+        svg { 
+          scale: 150%;
+          margin-bottom: 1.4rem;
+  
+          @media(max-width: 640px) {
+            scale: 100%;
+            margin-bottom: 0;
+          }
         }
       }
 
@@ -118,6 +124,7 @@
         font-size: 7rem;
         line-height: 0;
         margin: 3.5rem 0;
+        z-index: 2;
 
         @media(max-width: 1180px) {
           font-size: 5rem;
@@ -137,9 +144,39 @@
 
       p {
         color: var(--border-grey);
+        z-index: 2;
 
         @media(max-width: 460px) {
           font-size: .9rem;
+        }
+      }
+
+      .water-silo {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+  
+        .water {
+          position: relative;
+          width: 100%;
+          z-index: 0;
+          background-color: #1B4264;
+          transition: 500ms;
+
+          .animation{
+            position: absolute;
+            // top: 5px;
+            width: 100%;
+            height: auto;
+
+            @media(max-width: 640px) {
+              top: -1px;
+            }
+          }
         }
       }
     }
@@ -337,6 +374,10 @@
           background-color: var(--dark-blue);
           cursor: pointer;
         }
+
+        &:active {
+          transform: translateY(4px);
+        }
       }
     }
   }
@@ -508,6 +549,10 @@
     cursor: pointer;
   }
 
+  &:active {
+    transform: translateY(4px);
+  }
+
   @media(max-width: 460px) {
     right: 1.5rem;
   }
@@ -529,6 +574,7 @@
 .no-history {
   color: var(--border-grey);
   margin: 0;
+  margin-left: .2rem;
 }
 
 .logo-container {
