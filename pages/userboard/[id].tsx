@@ -166,7 +166,7 @@ const UserBoard: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = ({
         path: "/waves.json",
       });
 
-      animation.setSpeed(.6);
+      animation.setSpeed(0.6);
 
       return () => animation.destroy();
     }
@@ -205,16 +205,15 @@ const UserBoard: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = ({
     }
   }
 
-  const [waterlevel, setWaterlevel] = useState<number>(percentage)
+  const [waterlevel, setWaterlevel] = useState<number>(percentage);
 
   useEffect(() => {
     if (percentage > 100) {
-      setWaterlevel(100)
+      setWaterlevel(100);
     } else {
-      setWaterlevel(percentage)
+      setWaterlevel(percentage);
     }
-
-  }, [percentage])
+  }, [percentage]);
 
   useEffect(() => {
     setPercentage(() => Math.floor((intake / +user?.goal!) * 100));
@@ -281,8 +280,11 @@ const UserBoard: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = ({
               <p>Dagens mål</p>
               <h3>{percentage}%</h3>
               <p>avklarat</p>
-              <div className={styles['water-silo']}>
-                <div className={styles['water']} style={{height: `${waterlevel}%`}}>
+              <div className={styles["water-silo"]}>
+                <div
+                  className={styles["water"]}
+                  style={{ height: `${waterlevel}%` }}
+                >
                   <div ref={ref} className={styles["animation"]} />
                 </div>
               </div>
@@ -337,7 +339,7 @@ const UserBoard: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = ({
               })}
             </div>
           </div>
-          <p className={styles["history-title"]}>senaste dagarna</p>
+          <p className={styles["history-title"]}>Senaste dagarna</p>
           <div className={styles["history-container"]}>
             {user?.history.length !== 0 ? (
               <ul>
