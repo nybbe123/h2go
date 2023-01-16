@@ -9,7 +9,6 @@ import Image from "next/image";
 import Bubble from "../public/assets/images/bubble.webp";
 import { LottiePlayer } from "lottie-web";
 
-
 export interface UserData {
   name?: string | undefined;
   goal?: string | undefined;
@@ -51,11 +50,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-  const GoalPage: NextPage = () => {
+const GoalPage: NextPage = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const [goalValue, setGoalValue] = useState<number>(1500);
-  const [name, setName] = useState<string>('');
+  const [name, setName] = useState<string>("");
   const [formIsEmpty, setFormIsEmpty] = useState<boolean>(true);
   const [formIsValid, setFormIsValid] = useState<boolean>(true);
   const ref = useRef<HTMLDivElement>(null);
@@ -83,12 +82,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }, [lottie]);
 
   useEffect(() => {
-    if(name === '') {
-      return setFormIsEmpty(true)
+    if (name === "") {
+      return setFormIsEmpty(true);
     } else {
-      setFormIsEmpty(false)
+      setFormIsEmpty(false);
     }
-  },[name])
+  }, [name]);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setName(e.target.value);
@@ -106,7 +105,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   async function submitFormHandler(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    setIsLoading(true)
+    setIsLoading(true);
 
     const data: UserData = {
       id: session?.user?.id,
@@ -125,7 +124,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     if (response.ok) {
       const res = await response.json();
       setTimeout(() => {
-        setIsLoading(false)
+        setIsLoading(false);
         router.push(`/userboard/${session?.user.id}`);
       }, 2000);
     } else {
@@ -142,9 +141,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         <Logo />
       </div>
       <div className={styles.wrapper}>
-        <div className={styles['title']}>
+        <div className={styles["title"]}>
           <h2>Välkommen!</h2>
-          <p>Fyll i ditt namn och dagliga mål för att komma igång</p>
+          <p>Fyll i ditt namn och dina dagliga mål för att komma igång</p>
         </div>
         <form onSubmit={submitFormHandler} className={styles["inputfield"]}>
           <label htmlFor="first">
@@ -189,14 +188,22 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             </div>
             <div className={styles["info-text"]}>
               <p>
-                En vuxen rekommenderas att dricka minst 1500 ml dagligen och 2000 ml under varma och aktiva dagar.
+                En vuxen rekommenderas att dricka minst 1500 ml dagligen och
+                2000 ml under varma och aktiva dagar.
               </p>
             </div>
-            <button type="submit" className={`${styles["save-button"]} ${formIsEmpty ? '' : styles["active"]} ${isLoading ? styles['is-loading'] : ''}`}>
+            <button
+              type="submit"
+              className={`${styles["save-button"]} ${
+                formIsEmpty ? "" : styles["active"]
+              } ${isLoading ? styles["is-loading"] : ""}`}
+            >
               <p>Spara val</p>
               <div ref={ref} className={styles["animation"]} />
             </button>
-            <div className={`${styles.error} ${formIsValid ? '' : styles.invalid}`}>
+            <div
+              className={`${styles.error} ${formIsValid ? "" : styles.invalid}`}
+            >
               <p>Inga ändringar har gjorts</p>
             </div>
           </div>
