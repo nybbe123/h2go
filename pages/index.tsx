@@ -58,7 +58,6 @@ const Home: NextPage = () => {
       return () => animation.destroy();
     }
   }, [lottie]);
-  
 
   return (
     <>
@@ -74,10 +73,13 @@ const Home: NextPage = () => {
         </div>
         <div className={styles["text-container"]}>
           <h1>Vatten är naturens energidryck</h1>
-          <p>Rätt mängd har magiska effekter på din hälsa, börja mäta dina intag idag och känn skillnaden</p>
+          <p>
+            Rätt mängd har magiska effekter på din hälsa, börja mäta dina intag
+            idag och känn skillnaden
+          </p>
           <div>
             <button onClick={() => signIn()}>
-              <span>Börja din resa</span>
+              <span>Börja din resa här</span>
               <ArrowRight />
             </button>
           </div>
