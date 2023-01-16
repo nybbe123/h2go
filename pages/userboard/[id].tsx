@@ -24,6 +24,7 @@ import CloseIcon from "../../public/assets/images/close-icon.svg";
 import CanIcon from "../../public/assets/images/can1-icon.svg";
 import BottleIcon from "../../public/assets/images/bottle1-icon.svg";
 import { LottiePlayer } from "lottie-web";
+import btnstyle from '../../styles/btn.module.scss';
 
 // // get static paths from api
 // export const getStaticPaths = async () => {
@@ -151,6 +152,7 @@ const UserBoard: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = ({
   const [toogleOpen, setToogleOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
   const [lottie, setLottie] = useState<LottiePlayer | null>(null);
+  const [active, setActive] = useState<number>(0);
 
   useEffect(() => {
     import("lottie-web").then((Lottie) => setLottie(Lottie.default));
@@ -173,9 +175,15 @@ const UserBoard: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = ({
   }, [lottie]);
 
   function addIntake(value: number) {
+    setActive(value)
+
     setIntake((prevVal) => {
       return prevVal + value;
     });
+
+    setTimeout(() => {
+      setActive(0)
+    }, 1000);
   }
 
   useEffect(() => {
@@ -320,7 +328,7 @@ const UserBoard: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = ({
                     type="button"
                     key={index}
                     onClick={() => addIntake(intakeData.data)}
-                    className={styles.iconbtn}
+                    className={`${styles.iconbtn} ${btnstyle['bubbly-button']} ${active === intakeData.data ? btnstyle[`animate`] : ''}`}
                   >
                     <intakeData.image />
                   </button>
@@ -332,8 +340,9 @@ const UserBoard: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = ({
                     type="button"
                     key={index}
                     onClick={() => addIntake(intakeData)}
+                    className={`${btnstyle['bubbly-button']} ${active === intakeData ? btnstyle[`animate`] : ''}`}
                   >
-                    {intakeData}ml
+                    <p>{intakeData}ml</p>
                   </button>
                 );
               })}

@@ -198,7 +198,7 @@ export const getServerSideProps: GetServerSideProps = async ({params}) => {
       <div className={styles.menu} onClick={() => setToogleOpen(!toogleOpen)}>
           {toogleOpen ? <CloseIcon /> : <MenuIcon />}
         </div>
-      <div className={styles["logo-container"]}>
+      <div className={styles["logo-container"]} onClick={() => router.push(`/userboard/${user.id}`)}>
         <Logo />
       </div>
       <div className={styles.wrapper}>

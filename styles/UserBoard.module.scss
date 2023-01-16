@@ -169,7 +169,6 @@
 
           .animation{
             position: absolute;
-            // top: 5px;
             width: 100%;
             height: auto;
 
@@ -356,6 +355,7 @@
       }
       
       button {
+        position: relative;
         width: 8rem;
         height: 4rem;
         border-radius: 6px;
@@ -363,20 +363,28 @@
         background-color: var(--primary-blue);
         color: var(--white);
         font-size: 1.1rem;
-        transition: 250ms;
+        transition: 150ms;
 
         @media (max-width: 1023px) {
           margin-right: .8rem;
-      
+        }
+
+        p {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          translate: -50% -50%;
+          margin: 0;
         }
 
         &:hover {
           background-color: var(--dark-blue);
           cursor: pointer;
+          transform: scale(104%) perspective(1rem);
         }
 
         &:active {
-          transform: translateY(4px);
+          transform: translateY(2px);
         }
       }
     }
@@ -507,6 +515,7 @@
   position: absolute;
   bottom: 30%;
   left: 40%;
+  opacity: .5;
 
   @media (max-width: 2100px) {
     left: 30%;
@@ -527,7 +536,6 @@
     width: 600px;
     bottom: 70%;
     left: 15%;
-    opacity: .6;
   }
 }
 
@@ -550,7 +558,7 @@
   }
 
   &:active {
-    transform: translateY(4px);
+    transform: translateY(3px);
   }
 
   @media(max-width: 460px) {
@@ -564,7 +572,7 @@
   right: 85%;
   height: auto;
   width: 500px;
-  opacity: .25;
+  opacity: .15;
 
   @media(max-width: 1023px) {
     display: none;
