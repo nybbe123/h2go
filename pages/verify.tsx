@@ -22,11 +22,17 @@ const Verify: NextPage = () => {
           <div>
             <Confirm />
           </div>
-          <div className={styles['text-container']}>
-            <h2>Kolla din <span className={styles.at}>@</span>mail</h2>
-            <p className={styles.firstp}>Vi har skickat en aktiveringslänk till din mail. Klicka på länken för att fortsätta</p>
+          <div className={styles["text-container"]}>
+            <h2>
+              Kolla din <span className={styles.at}>@</span>mail
+            </h2>
+            <p className={styles.firstp}>
+              Vi har skickat en aktiveringslänk till din mail. Klicka på länken
+              för att fortsätta
+            </p>
             <p className={styles.secondp}>
-              Kan du inte hitta länken? <b>Kolla din skräppost</b>
+              Kan du inte hitta länken? Den kan ha hamnat fel{" "}
+              <b>Kolla din skärppost</b>
             </p>
           </div>
         </div>
