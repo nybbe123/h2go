@@ -1,5 +1,6 @@
 .root {
-  height: 100vh;
+  // height: 100vh;
+  height: var(--app-height);
   position: relative;
   overflow: hidden;
   display: flex;
@@ -304,10 +305,6 @@
 
     .iconbtn {
       position: relative;
-
-      @media(max-width: 1023px) {
-        top: -.32rem;
-      }
 
       svg {
         position: absolute;

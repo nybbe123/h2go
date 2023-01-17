@@ -277,7 +277,7 @@ const UserBoard: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = ({
         <Image src={SmalBubble} alt="bubble" className={styles.bubbleTwo} />
         <div className={styles["data-field"]}>
           <div className={styles.name}>
-            <h1>Hej {user?.name}!</h1>
+            <h1>Hej {user?.name}</h1>
             <p>{personalMessage}</p>
           </div>
           <div className={styles["intake-data"]}>
