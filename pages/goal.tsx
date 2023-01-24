@@ -204,7 +204,7 @@ const GoalPage: NextPage = () => {
             <div
               className={`${styles.error} ${formIsValid ? "" : styles.invalid}`}
             >
-              <p>Inga ändringar har gjorts kompis</p>
+              <p>Inga ändringar har gjorts kompis!</p>
             </div>
           </div>
         </form>
