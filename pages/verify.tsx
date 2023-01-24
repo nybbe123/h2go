@@ -32,7 +32,7 @@ const Verify: NextPage = () => {
             </p>
             <p className={styles.secondp}>
               Kan du inte hitta länken? Den kan ha hamnat fel{" "}
-              <b>Kolla din skärppost</b>
+              <b>Den kan ha hamnat i skräpposten.</b>
             </p>
           </div>
         </div>
