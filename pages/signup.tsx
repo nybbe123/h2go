@@ -93,7 +93,7 @@ const SignUp: NextPage<
         <div>
           <h1>Hej kompis!</h1>
           <p>
-            H2:GO är lösenordsfritt. Knappa in din email för att logga in eller
+            H2:GO är lösenordsfritt. Knappa in din e-post för att logga in eller
             registrera ett nytt konto.
           </p>
         </div>
@@ -105,7 +105,7 @@ const SignUp: NextPage<
           >
             <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
             <label htmlFor="email">
-              <span>E-mail</span>
+              <span>E-post</span>
               <input
                 id="email"
                 name="email"
