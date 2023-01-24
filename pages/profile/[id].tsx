@@ -1,4 +1,10 @@
-import { GetServerSideProps, GetStaticPropsContext, InferGetServerSidePropsType, InferGetStaticPropsType, NextPage } from "next";
+import {
+  GetServerSideProps,
+  GetStaticPropsContext,
+  InferGetServerSidePropsType,
+  InferGetStaticPropsType,
+  NextPage,
+} from "next";
 import prisma from "../../prisma/prismaDb";
 import Bubble from "../../public/assets/images/bubble.webp";
 import styles from "../../styles/ProfilePage.module.scss";
@@ -6,7 +12,7 @@ import Logo from "../../public/assets/images/logo.svg";
 import { UserData } from "../goal";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import MenuIcon from '../../public/assets/images/menu.svg'
+import MenuIcon from "../../public/assets/images/menu.svg";
 import Confirm from "../../public/assets/images/confirm-smal.svg";
 import CloseIcon from "../../public/assets/images/close-icon.svg";
 import { useRouter } from "next/router";
@@ -33,7 +39,7 @@ import { LottiePlayer } from "lottie-web";
 
 // // get static paths from api
 // export const getStaticProps = async ({params}: GetStaticPropsContext<{id: string}>) => {
-  
+
 //   if(!params) {
 //     return {
 //       notFound: true
@@ -47,13 +53,13 @@ import { LottiePlayer } from "lottie-web";
 //         id
 //       },
 //   });
-  
+
 //   if (!user) {
 //     return {
 //       notFound: true,
 //     };
 //   }
-  
+
 //   user = await JSON.parse(JSON.stringify(user))
 
 // return {
@@ -64,20 +70,20 @@ import { LottiePlayer } from "lottie-web";
 // };
 // };
 
-export const getServerSideProps: GetServerSideProps = async ({params}) => {
-  let id = params?.id as string
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  let id = params?.id as string;
 
   let user = await prisma.user.findUnique({
-      where: {
-        id: id
-      },
-      select: {
-        id: true,
-        intake: true,
-        goal: true,
-        name: true,
-        email: true,
-      },
+    where: {
+      id: id,
+    },
+    select: {
+      id: true,
+      intake: true,
+      goal: true,
+      name: true,
+      email: true,
+    },
   });
 
   if (!user) {
@@ -85,7 +91,7 @@ export const getServerSideProps: GetServerSideProps = async ({params}) => {
       notFound: true,
     };
   }
-  
+
   user = await JSON.parse(JSON.stringify(user));
 
   return {
@@ -96,8 +102,10 @@ export const getServerSideProps: GetServerSideProps = async ({params}) => {
 // const ProfilePage: NextPage<
 // InferGetStaticPropsType<typeof getStaticProps>
 // > = ({ user }) => {
-  const ProfilePage: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = ({user}) => {
-  const router = useRouter()
+const ProfilePage: NextPage<
+  InferGetServerSidePropsType<GetServerSideProps>
+> = ({ user }) => {
+  const router = useRouter();
   const [goalValue, setGoalValue] = useState<number>(parseInt(user?.goal!));
   const [name, setName] = useState<string>(user?.name!);
   const [formIsEmpty, setFormIsEmpty] = useState<boolean>(false);
@@ -137,32 +145,32 @@ export const getServerSideProps: GetServerSideProps = async ({params}) => {
     if (goalValue >= 3000) return;
     setGoalValue((prevValue) => prevValue + 100);
   }
-  
+
   function decreaseGoalValue() {
     if (goalValue <= 1000) return;
     setGoalValue((prevValue) => prevValue - 100);
   }
 
   useEffect(() => {
-    setFormIsValid(true)
+    setFormIsValid(true);
 
-    if(goalValue === parseInt(user?.goal!) && name === user?.name!) {
-      return setFormIsEmpty(true)
+    if (goalValue === parseInt(user?.goal!) && name === user?.name!) {
+      return setFormIsEmpty(true);
     } else {
-      setFormIsEmpty(false)
+      setFormIsEmpty(false);
     }
-  }, [name, goalValue, user?.goal, user?.name])
+  }, [name, goalValue, user?.goal, user?.name]);
 
   async function submitFormHandler(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    if(goalValue === parseInt(user?.goal!) && name === user?.name!) {
-      return setFormIsValid(false)
+    if (goalValue === parseInt(user?.goal!) && name === user?.name!) {
+      return setFormIsValid(false);
     } else {
-      setFormIsValid(true)
+      setFormIsValid(true);
     }
 
-    setIsLoading(true)
+    setIsLoading(true);
 
     const data: UserData = {
       id: user?.id,
@@ -180,12 +188,12 @@ export const getServerSideProps: GetServerSideProps = async ({params}) => {
 
     if (response.ok) {
       const res = await response.json();
-      setName(res.name)
-      setGoalValue(parseInt(res.goal))
+      setName(res.name);
+      setGoalValue(parseInt(res.goal));
       setTimeout(() => {
-        setFormIsEmpty(true)
-        setIsLoading(false)
-        setIsComplete(true)
+        setFormIsEmpty(true);
+        setIsLoading(false);
+        setIsComplete(true);
       }, 2000);
     } else {
       console.log("error");
@@ -196,13 +204,16 @@ export const getServerSideProps: GetServerSideProps = async ({params}) => {
     <div className={styles.root}>
       <Menu isOpen={toogleOpen} />
       <div className={styles.menu} onClick={() => setToogleOpen(!toogleOpen)}>
-          {toogleOpen ? <CloseIcon /> : <MenuIcon />}
-        </div>
-      <div className={styles["logo-container"]} onClick={() => router.push(`/userboard/${user.id}`)}>
+        {toogleOpen ? <CloseIcon /> : <MenuIcon />}
+      </div>
+      <div
+        className={styles["logo-container"]}
+        onClick={() => router.push(`/userboard/${user.id}`)}
+      >
         <Logo />
       </div>
       <div className={styles.wrapper}>
-        <div className={styles['title']}>
+        <div className={styles["title"]}>
           <h2>{user?.name}</h2>
           <p>{user?.email}</p>
         </div>
@@ -217,7 +228,7 @@ export const getServerSideProps: GetServerSideProps = async ({params}) => {
               required
               minLength={2}
               maxLength={12}
-              pattern="[a-zA-Z]{1,12}"
+              pattern="[a-zA-Z\s]{1,12}"
               title="Ditt namn måste innehålla mellan 2 och 12 bokstäver (a till ö)."
               placeholder="Skriv ditt namn här"
               onChange={handleChange}
@@ -249,14 +260,22 @@ export const getServerSideProps: GetServerSideProps = async ({params}) => {
             </div>
             <div className={styles["info-text"]}>
               <p>
-                En vuxen rekommenderas att dricka minst 1500 ml dagligen och 2000 ml under varma och aktiva dagar.
+                En vuxen rekommenderas att dricka minst 1500 ml dagligen och
+                2000 ml under varma och aktiva dagar.
               </p>
             </div>
-            <button type="submit" className={`${styles["save-button"]} ${formIsEmpty ? '' : styles["active"]} ${isLoading ? styles['is-loading'] : ''}`}>
+            <button
+              type="submit"
+              className={`${styles["save-button"]} ${
+                formIsEmpty ? "" : styles["active"]
+              } ${isLoading ? styles["is-loading"] : ""}`}
+            >
               <p>Spara val</p>
               <div ref={ref} className={styles["animation"]} />
             </button>
-            <div className={`${styles.error} ${formIsValid ? '' : styles.invalid}`}>
+            <div
+              className={`${styles.error} ${formIsValid ? "" : styles.invalid}`}
+            >
               <p>Inga ändringar har gjorts</p>
             </div>
           </div>
@@ -265,8 +284,8 @@ export const getServerSideProps: GetServerSideProps = async ({params}) => {
       <Image src={Bubble} alt="bubble" className={styles.bubbleOne} />
       <Image src={Bubble} alt="bubble" className={styles.bubbleTwo} />
       <Image src={Bubble} alt="bubble" className={styles.bubbleThree} />
-      <div className={`${styles.modal} ${isComplete ? styles.active : ''}`}/>
-      <div className={`${styles.complete} ${isComplete ? styles.active : ''}`}>
+      <div className={`${styles.modal} ${isComplete ? styles.active : ""}`} />
+      <div className={`${styles.complete} ${isComplete ? styles.active : ""}`}>
         <div className={styles.container}>
           <Confirm />
           <div>
@@ -274,13 +293,17 @@ export const getServerSideProps: GetServerSideProps = async ({params}) => {
             <p>Dina ändringar har sparats.</p>
           </div>
         </div>
-        <button onClick={() => {
-          setIsComplete(false)
-          router.replace(router.asPath)
-        }}>Fortsätt</button>
+        <button
+          onClick={() => {
+            setIsComplete(false);
+            router.replace(router.asPath);
+          }}
+        >
+          Fortsätt
+        </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProfilePage
+export default ProfilePage;
